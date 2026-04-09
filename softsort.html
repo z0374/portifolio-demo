@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--script src="https://kit.fontawesome.com/b42a2f6a22.js" crossorigin="anonymous"></script-->
+    <meta charset="utf-8">
+    <style>
+        * {
+            font-family: arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            border: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        .td {
+            width: 60vw;
+            min-height: 36vw;
+            padding: 0.9rem;
+            background-color: #A7C5A7;
+            display: flex;
+            justify-content: space-evenly;
+            opacity: 0.72;
+        }
+        h1,.return {
+            font-size: 9rem;
+            color: #0E330E;
+        }
+        #sth {
+            font-size: 3rem;
+        }
+        #in {
+            font-size: 1.2rem;
+        }
+        h2 {
+            font-size: 3rem;
+            color: #456F45;
+        }
+        input {
+            width: 15vw;
+            height: 3.3rem;
+            display: auto;
+            background-color: #F0FFDF;
+            font-size: 3rem;
+            -webkit-appearance: none;
+            -moz-appearance: textfield;
+        }
+        button {
+            width: auto;
+            padding: 0 0.9rem;
+            height: 3.3rem;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #0E330E;
+            background-color: #87AD87;
+            align-items: center;
+            cursor: pointer;
+        }
+        button:hover {
+            opacity: 0.3;
+        }
+        @media (max-width: 999px) {
+            .td {
+                width: 96vw;
+                min-height: 51vw;
+            }
+        }
+        .return{opacity:0.09;}.return:hover{opacity:0.9;}
+    </style>
+</head>
+<body>
+    <a class="return" href="/portifolio" style="position:absolute;top:0.3vw;left:0.6vw;font-size:1.5rem;"><i class="fa-solid fa-arrow-left"></i></a>
+    <div class="td">
+        <h1></h1>
+        <h2></h2>
+        <p></p>
+        <input type="number" hidden>
+        <button id="bt"></button>
+    </div>
+
+    <script defer>
+    index();
+
+    const cmp = document.querySelector('input');
+    var rst = [];
+
+    let alf = 0;
+    let omg = 0;
+    let qtnm = 0;
+    let alfS = 0;
+    let min = 0;
+    let nr = 0;
+    let rs = 0;
+
+    const emj = ["😀", "🎉", "🌟", "🚀", "❤️", "🐶", "🍕", "🌍", "🎶"];
+
+    // Chamadas do botão
+    function ns() {
+        rs = 0;
+        alf = 0;
+        rst = [];
+        extxt('h1', 'Sorteio');
+        extxt('h2', 'Escolha o número inicial', 'in');
+        cmp.removeAttribute('hidden');
+
+        btn('Definir', 'st()');
+        cmp.focus();
+    }
+    function st() {
+    omg = 0;
+    alf = parseInt(cmp.value);
+    console.log(alf);
+
+    if (isNaN(alf)) {
+        extxt('h2', 'Escolha um valor');
+        lmp();
+        return;
+    }
+
+    extxt('h1', `Sorteio do<br>${alf}`, 'sth');
+    extxt('h2', 'Escolha o número final');
+    btn('Definir', 'stt()');
+    lmp();
+}
+
+function stt() {
+    omg = parseInt(cmp.value);
+
+    if (isNaN(omg) || omg === '' || omg === 0) {
+        lmp();
+        return;
+    }
+    console.log(omg);
+
+    if (omg < alf) {
+        alfS = alf;
+        alf = omg;
+        omg = alfS;
+    }
+
+    extxt('h2', 'Escolha a quantidade de números');
+    extxt('h1', `Sorteio do<br></bf>${alf} ao ${omg}`, 'sth');
+    btn('Definir', 'sttt()');
+    lmp();
+}
+    function sttt() {
+        min = omg - alf;
+        qtnm = parseInt(cmp.value);
+
+    if (qtnm > min || isNaN(qtnm) || qtnm == 0) {
+        extxt('h2', 'Quantidade de 1 à ' + min, 'rst');
+        lmp();
+        return;
+    }
+
+    extxt('h1', `SORTEIO`, ' ');
+    extxt('h2', `${qtnm} números do ${alf} até o ${omg}`, 'rst');
+    cmp.setAttribute('hidden', true);
+    btn('SORTEAR', 'srt()');
+    lmp();
+}
+    // SORTEIO
+function srt() {
+    rs = 1;
+    extxt('h1', 'SORTEANDO', 'sth');
+    btn('RESET', 'ns()');
+    let attempts = 0;
+    document.querySelector('h2').innerHTML = ' ';
+
+    let interval = setInterval(function() {
+        attempts++;
+        if (attempts >= 3 * qtnm || rs == 0) {
+            console.error("Sorteio Interrompido.");
+            clearInterval(interval);
+            return;
+            }
+
+    if (rst.length >= qtnm || attempts >= 3 * qtnm) {
+    clearInterval(interval); // Para o intervalo quando a condição é satisfeita
+    rst.sort((a, b) => a - b);
+    console.log(rst);
+    extxt('h1', 'RESULTADO', 'sth');
+    extxt('h2', rst.join(', '), 'rst');
+    return;
+}
+
+let nr = Math.floor(Math.random() * (omg - alf + 1)) + alf;
+
+    if (nr !== 0) {
+    document.querySelector('h1').innerHTML = nr;
+        if (rst.indexOf(nr) === -1) {
+        rst.push(nr);
+        document.querySelector('h2').innerHTML = '<u>Sorteados</u><br>' + rst.join(', ');
+            }
+        }
+
+    }, 600);
+}
+
+    // Manusear TAGS HTML
+function extxt(tag, txt, id) {
+    let tx = document.querySelector(tag);
+    tx.innerHTML = txt;
+    tx.setAttribute('id', id);
+    return tx;
+}
+
+function btn(txt, atr) {
+    var bt = document.querySelector('#bt');
+    bt.innerHTML = txt;
+    bt.setAttribute('onclick', atr);
+    bt.removeAttribute('hidden');
+    return bt;
+}
+
+function lmp() {
+    cmp.value = '';
+    cmp.focus();
+}
+    // Inicio
+function index() {
+    extxt('h1', 'Sorteio');
+    extxt('h2', 'Clique em INICIAR para configurar');
+    btn('INICIAR', 'ns()');
+}
+
+window.addEventListener('keyup', function(event) {
+    if (event.key === 'Enter') {
+        bt.click();
+    }
+});
+
+</script>
+
+</body>
+</html>
