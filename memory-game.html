@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<meta name='viewport' content='width=device-width,initial-scale=1.0'>
+	<style>
+		*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif;background:none;border:none;outline:none;}
+		body{height:100vh;display:flex;flex-flow:column wrap;justify-content:center;align-items:center;}
+		#app{display:flex;flex-flow:row wrap;align-items:center;justify-content:space-evenly;}
+        .titulo{text-align:center;font-family:Times New Roman, sans-serif;font-size:5.1rem;color:#3D5369;}
+        .subtitulo{width:81%;text-align:right;font-size:1.5rem;color:#6E8093;padding-left:30%;}
+        .bt{border:solid 0.3rem #6E8093;background:#A8B3BE;color:#882F27;z-index:6;font-weight:bolder;}.bt:active{opacity:0.6;}
+        #fim{width:9rem;height:2.1rem;text-decoration:underline;}
+        .nickname{width:36%;border-bottom:dashed 0.15rem #3D5369;font-size:1.5rem;text-align:center;color:#60F07D;resize:none;white-space: nowrap;font-family:Roboto;}.nickname::placeholder{color:#FFFFFF;}
+        .nickname:valid + #game {
+            opacity:1;
+            cursor: normal;
+        }
+        #game{width:12rem;height:3rem;font-weight:bolder;font-size:1.8rem;line-height:0.3;}
+        .nickname:invalid + #game{
+            opacity:0.3;
+            cursor: not-allowed;
+        }
+		.carta{width:100%;height:100%;border-radius:0.42rem;position:absolute;
+			transition:transform 0.9s;backface-visibility:hidden;
+			border:solid 0.03rem black;
+            background-size:cover;
+            display:flex;align-items:center;
+		}.carta img{max-height:100%}
+        #menu:not([hidden]){display:flex;width:42rem;height:1.5rem;font-size:0.72rem;justify-content:space-around;border-radius:0.9rem 0.9rem 0 0;background:#A7C8E8;color:#0D2033;}
+            #menu h1{height:100%;}
+            #rs{width:3rem;font-size:1.2rem;line-height:0.03rem;background:none;border:none;}
+        
+    @media(max-width:920px){
+            body{width:99vw;position:relative;}
+            #menu:not([hidden]){width:93%;border-radius:0 0 0.9rem 0.9rem;position:fixed;top:0;}
+            .subtitulo{width:81%;}
+        }
+		</style>
+			</head>
+<body>
+    <nav id='menu' hidden ></nav>
+	<main id='app'>
+			</main>
+        
+	<script>
+    const body=document.querySelector('body');
+    const menu=document.getElementById('menu');
+	const app=document.querySelector('#app');
+    const level = document.createElement('h1');
+    const timer=document.createElement('h1');
+    const pontos=document.createElement('h1');
+    const playerName = document.createElement('input');
+    //const alfabeto=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+let baralho =[];	
+    <?php $dados = fopen("https://docs.google.com/spreadsheets/d/e/2PACX-1vQfGbE_vVzFBtTUhXe6yai1u2E3UWvVXadhsdeNP_lspinH76xFuUJhiyyy_aKNhC9_MrHi0jHXXOb-/pub?gid=0&single=true&output=csv", "r");$cbcl=fgetcsv($dados, 1000, ",");while($row=fgetcsv($dados, 1000, ",")){$artes[]=array_combine($cbcl, $row);}fclose($dados); $length=count($artes);for($i=0;$i<$length;$i++){
+    echo "baralho.push(
+        {
+            img:'".$artes[$i]['IMG']."',
+            lgd:`".$artes[$i]['LGD']."`
+        }
+        );"
+            ;} ?>;
+    console.log(baralho);
+let revelada=[];let encontrada=[];let cartas=[];
+let nv=0;let recorde;
+
+            let time;
+            let minutes = 0;
+            let seconds = 0;
+            let isRunning = false;
+
+index();
+function ganhou(){
+    app.hidden=true;console.log('É '+document.querySelectorAll('.vitoria').length);
+    const container = document.createElement('section');
+if(document.querySelectorAll('.vitoria').length == 0){
+    
+        container.classList.add('vitoria');
+        container.style.width='30rem';
+        container.style.height='30rem';
+        container.style.position='absolute';
+        container.style.background='#58C776';
+        container.style.border='solid 3rem #9AC7A6';
+        container.style.borderRadius='15rem';
+        }
+        if(container.hidden!==true){container.style.display='flex';container.style.alignItems='center';container.style.justifyContent='space-evenly';}
+    body.append(container);
+    const score = document.createElement('aside');
+        score.style.display='flex';score.style.flexDirection='column';score.style.justifyContent='space-around';score.style.alignItems='center';score.style.height='60%';score.style.width='60%';score.style.textAlign='center';
+        score.innerHTML='<h1>LEVEL: '+level.textContent+'</h1><h2 id="pts">Score:</h2>'
+        const num=document.createElement('marquee');num.style.fontSize='0.9rem';
+            num.setAttribute('scrollamount', '1')
+            num.textContent = recorde;
+        
+        container.append(score);document.querySelector('#pts').append(num);
+        bt('game','game()','Continuar',score,false); bt('fim','fim()','Fim de Jogo',score,false);
+    
+
+}
+function index(){
+    
+    if(window.innerWidth < 920){
+        app.style.width = '93vw';
+        app.style.height = '30rem';
+    }else{
+    app.style.width='42rem';
+    app.style.height='30rem';
+    }
+    app.style.flexFlow='column nowrap';
+    app.style.background='#A7C7E7';
+    app.style.borderRadius='1.5rem';
+    
+    const titulo=document.createElement('h1');
+    titulo.classList.add('titulo');
+        titulo.textContent='Jogo da Memória';
+        
+    const subtitulo=document.createElement('marquee');
+        subtitulo.textContent="Desafie sua memória, vença com estratégia!";
+        subtitulo.classList.add('subtitulo');
+    playerName.setAttribute('type','text');playerName.minLength=3;
+        playerName.classList.add('nickname');
+        playerName.placeholder='seu apelido';playerName.required=true;
+    app.append(titulo);app.append(subtitulo);app.append(playerName);bt('game','game()','▶️',app);
+    
+    }
+function game(){
+        if(playerName.value.length<3){return;}
+        if(nv==0){criarMenu(playerName.value);}
+        
+        startTimer(timer);
+        nv++;
+        level.textContent=nv;
+        app.removeAttribute('style');
+        console.log(nv);
+            app.style.background='';
+            app.innerHTML='';
+            baralho.reverse();
+            cartas = embaralhar(baralho,nv);console.log(cartas);
+            app.style.width='24vw';
+        if(window.innerWidth<=920){
+            app.style.width='72%';
+            app.style.height='87%';
+        }
+        else{
+            if(nv>=12){
+                app.style.width='96%';
+                app.style.height='90%';
+            }
+            else
+            if(nv>=4 && nv<=12){
+                app.style.width='calc('+nv+'*9vw)';
+                app.style.height='90%';
+            }else
+            if(nv%3==0){
+                app.style.width='calc('+nv+'*12vw)';
+                
+            }else{app.style.height='calc('+nv+'*15vw)';}
+}
+        for(let i=0;i<cartas.length;i++){
+            let cartinha = card(cartas[i]);
+            app.appendChild(cartinha);console.log(cartas.length);
+            
+            
+            
+    }
+    if(document.querySelectorAll('.vitoria').length > 0){console.log('contem Vitoria');document.querySelector('.vitoria').remove();}
+    return;
+       
+    }
+
+function criarMenu(jogador){
+    body.style.position='relative';
+    menu.hidden=false;
+    bt('rs','','🔄',menu);
+    timer.textContent=0;
+    timer.style.color='#FFFFFF';
+        menu.append(timer);
+    pontos.textContent='score: '+score();
+        menu.append(pontos);
+    level.textContent='';
+        level.style.color='#5FF07D';
+        level.textContent='level: '+nv;
+    menu.append(level);
+    const player = document.createElement('h1');
+        player.textContent=jogador;
+    menu.append(player);
+    menu.style.position='absolute';
+    menu.style.top='0';
+
+}
+
+	function card(front){
+			const carta=document.createElement('aside');
+			if(window.innerWidth<=920){
+			carta.style.width='27vw';
+			carta.style.height='36vw';
+			carta.style.borderRadius='0.42rem';
+			}else{
+			carta.style.width='9vw';
+			carta.style.height='12vw';
+			carta.style.borderRadius='0.42rem';
+			}
+			carta.style.margin='0.03rem';
+			carta.style.position='relative';
+			carta.style.transformStyle='preserve-3d';
+			carta.style.perspective='3000px';
+				const frente=document.createElement('figure');
+				frente.style.background='white';
+                frente.style.backgroundSize='100%';
+                frente.style.backgroundPosition='center';
+				frente.classList.add('carta');
+				frente.style.transform='rotatey(180deg)';
+                const img=document.createElement('img');
+                img.src=front['img'];
+                img.style.width='100%';frente.style.border='solid 0.09rem #000000'
+                frente.title=front['lgd'];
+                    frente.append(img);
+					carta.append(frente);
+
+				const verso=document.createElement('figure');
+				verso.style.background='#772A23';
+				verso.classList.add('carta');
+					carta.append(verso);
+			//carta.onmouseout=function()
+			carta.onclick=function(){
+                if(revelada.length>=2){return;}
+                
+				if(frente.style.transform!=='rotateY(360deg)'){frente.style.transform='rotateY(360deg)';verso.style.transform='rotateY(180deg)';
+                    frente.classList.add('fnt');
+                    verso.classList.add('vrs');
+                    revelada.push(img.src);document.querySelectorAll('.carta').forEach(elm=>{elm.style.pointerEvents='none';});
+                    }
+                if(revelada.length>=2){
+                setTimeout(()=>{
+                    if(revelada.length >=2 && revelada[0]==revelada[1]){console.log('são inguainzinho');
+                    document.querySelectorAll('.fnt').forEach(elm=>{elm.classList.add('encontrada');elm.classList.remove('fnt');
+                    encontrada.push(elm);});
+                    document.querySelectorAll('.vrs').forEach(elm=>{elm.classList.remove('vrs');});
+                    document.querySelectorAll('.encontrada').forEach(elm=>{elm.style.opacity='0.3';});
+                revelada=[];console.log(encontrada.length);
+                    }
+                    },1000);
+				setTimeout(()=>{
+                    if(encontrada.length>=cartas.length){
+                        document.querySelectorAll('.encontrada').forEach(elm=>{
+                            elm.style.opacity='1';
+                            elm.classList.remove('encontrada')
+                        });
+                        encontrada=[];
+                        app.style.background='#58C776';
+                        pontos.textContent='score: '+score();
+                        ganhou();
+                        startTimer(timer);
+                        
+                        return;
+                        }
+                    if(revelada.length >=2 && revelada[0]!==revelada[1]){console.log('são não inguais');
+                        document.querySelectorAll('.fnt').forEach(elm=>{elm.style.transform='rotateY(180deg)';elm.classList.remove('fnt');});
+                        document.querySelectorAll('.vrs').forEach(elm=>{elm.style.transform='rotateY(360deg)';elm.classList.remove('vrs');});
+            revelada=[];return;}
+            },1200);
+                }
+                    return;
+            }
+			return carta;
+		}
+
+            
+            function embaralhar(array,nm){
+                    array=array.slice(array.length-nm);
+                let arr = array.flatMap(item => [item, item]);
+                    for (let i = arr.length-1; i > 0; i--){
+                        const j = Math.floor(Math.random() * (i + 1));
+                            [arr[i], arr[j]] = [arr[j], arr[i]];
+                    }console.log(arr);
+                    return arr;
+                }
+            function bt(id, click, texto, pai, boolean){
+                    const bt=document.createElement('button');
+                        bt.classList.add('bt');
+                        bt.setAttribute('id',id);
+                        bt.setAttribute('onclick',click);
+                        bt.textContent = texto;
+                        bt.disabled=boolean;
+                        bt.hidden=boolean;
+                    pai.append(bt);
+                }
+            function startTimer(elm) {
+                if (isRunning) {
+                    // Se o timer está em execução, para o timer
+                    clearInterval(time);
+                    seconds=0;
+                    isRunning = false;
+                    elm.textContent=0;
+                    return;
+                } else {
+                    // Se o timer não está em execução, inicia o timer
+                    time = setInterval(function() {
+                        seconds++;
+                    elm.textContent=seconds;
+                    }, 1000);
+                    isRunning = true;
+                }
+            }
+           function score(){
+               const cards=cartas.length ||0;
+                const pontos = Math.floor(recorde+(nv * (cards*10)-(cards*seconds))*12) || 0;
+                recorde=pontos;
+                return pontos;
+          }
+			</script>
+				</body>
+					</html>
+
