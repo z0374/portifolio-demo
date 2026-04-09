@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title></title><link rel='icon' type='image/svg+xml' href=''><style>
+        :root {}
+        
+        *{
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    display: auto;
+    opacity:1;
+
+}
+button:hover, label:hover, a:hover{
+    cursor: pointer;
+    opacity:0.6;
+    
+}/* Estilos estáticos para o componente de menu */
+.navegation{
+    width:100%;
+    height:6%;
+    font-size:1.2rem;
+    font-weight:bolder;
+    display:flex;align-items:center;
+    justify-content:space-around;
+    padding:0 1.2vw;
+}
+.navegation a, .navegation label{
+    padding:0.09em;
+}
+.navegation input[type='radio']:checked + .menuLabel{
+    text-decoration:underline;
+    opacity:0.3;
+}
+        
+        .navegation{
+            background-color:#F2EDF0;
+        }
+        
+        #pdt {width:81vw;display:flex;flex-flow:row wrap;align-items:center;justify-content:space-around;padding:0.9rem 0;margin:1.5rem;border-radius:0.6rem;box-shadow: 0px 0px 10px rgba(90, 90, 90, 0.3);}
+        #pdt h1{width:100%;text-align:center;font-size:2.4rem;text-decoration:underline;grid-column:1;}
+        #pdt div{width:27rem;height:30rem;margin-top:0.9rem;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);display:flex;flex-direction:column;padding:0.6rem 1.2rem;justify-content:space-between;border-radius:0.9rem;}
+        #pdt figure{width:100%;height:100%;}
+        #pdt p{display:none;}
+    
+        @media(max-width:990px) and (orientation:landscape){
+            #pdt {overflow-y:visible;overflow-x:scroll;width:93vw;min-height:36rem;padding:0 1.5rem;box-sizing:border-box;display:grid;flex-wrap:nowrap;justify-content:flex-start;justify-items:start;gap:1.5rem;grid-template-rows:1fr 1fr;scroll-snap-type:x mandatory;scroll-behavior:smooth;}
+            #pdt h1{position:sticky;top: 0;left:0;z-index:3;grid-row:1;}
+            #pdt div{width:81vw;grid-row:2;scroll-snap-align:center;}
+        }
+    
+        form#ctt1 {width: 81%;display: flex;flex-flow: column nowrap;gap: 0.9rem;}
+        form#ctt1 input,
+        form#ctt1 textarea {width: 90%;height: 3rem;padding: 0.9rem;font-size: 1.14rem;border-radius: 0.3rem;box-shadow: 0 0 0.1rem 0.1rem rgba(78,78,78,0.09);}
+        form#ctt1 textarea {height: 9rem;resize: none;}
+        form#ctt1 input[type=submit] {background: #CA0011;color: #FFFFFF;font-weight: bold;}
+    
+    *{font-family:arial,roboto,sans-serif;}
+    body, html{overflow-x:hidden;}
+    main{display:flex;flex-direction:column;justify-content:start;align-items:center;overflow-x:hidden;overflow-y:visible;}
+    header{width:100vw;box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);position:relative;display:flex;flex-direction:column;text-align:center;justify-content:space-between;background:#C10010;color:; height:auto;
+    position: sticky;
+    }
+    header .ttl, footer h1{color:#EAE5E7;}header .ttl{font-size:3rem;
+  }
+    .navegation{border-bottom:groove 0.01rem rgba(79,79,79,0.3)}.navegation a{color:#CA0011;}
+
+    .hero{width:100vw;padding:0.9rem 0;display:flex;flex-direction:column;align-items:center;justify-content:space-around;background:#F2EEED;box-shadow: 0 4px 8px rgba(90, 90, 90, 0.2);}
+    #img{width:90vw;height:45vw;border-radius:1.2vh;background:#F1EDEF;background:#c3c3c3;background-size:cover;}
+    .hero .ttl{font-size:3.3rem;color:#CA0011;text-align:center;font-weight:bold;}
+    .hero p{width:69vw;font-size:1.2rem;color:#666666;text-align:center;line-height:2.1rem;}
+    .hero a{padding:1.2vw 2.1vw;border-radius:0.6vh;background:#C10010;color:#FFFFFF;font-size:1.2rem;text-align:center;}
+    #pdt,#pdt h1{color:#C10010;background:#F2EEED;}
+    #banners{width:81vw;min-height:auto;gap:3vw;display:flex;flex-wrap:wrap;}
+        #banners div{width:24vw;padding:1.8rem 0;display:flex;flex-direction:column;gap:3rem;justify-content:start;align-items:center;background:#F2EEED;border-radius:0.9rem;}
+            #banners div h1{width:84%;max-height:12%;display:flex;align-items:center;color:#C10010;border-bottom:solid 0.3rem #C10010;}
+            #banners div aside{width:90%;color:#787878;background:#F1EDEF;border-left:solid 0.6rem #C10010;border-radius:0.9rem;padding:1.5rem;box-shadow:1px 1px 3px 3px rgba(78,78,78,0.3);}#banners div aside h2{color:#C10010;}
+
+    footer{margin-top:9rem;padding:0.9rem;background:#C10010;}footer h1{text-align:center;font-size:0.9rem;}
+  
+
+        /* ============================================================
+           I. INTERMEDIÁRIO MOBILE (XS + SM) - Até 767px
+           ============================================================ */
+        @media screen and (max-width: 767px) {
+            @media (orientation: portrait)  {  }
+            @media (orientation: landscape) {  }
+
+            /* Específicos */
+            @media screen and (max-width: 575px) {
+                @media (orientation: portrait)  {  }
+                @media (orientation: landscape) {  }
+            }
+            @media screen and (min-width: 576px) {
+                @media (orientation: portrait)  {  }
+                @media (orientation: landscape) {  }
+            }
+        }
+
+        /* ============================================================
+           II. INTERMEDIÁRIO TABLET (MD + LG) - 768px até 1199px
+           ============================================================ */
+        @media screen and (min-width: 768px) and (max-width: 1199px) {
+            @media (orientation: portrait)  {  }
+            @media (orientation: landscape) {  }
+
+            /* Específicos */
+            @media screen and (max-width: 991px) {
+                @media (orientation: portrait)  {  }
+                @media (orientation: landscape) {  }
+            }
+            @media screen and (min-width: 992px) {
+                @media (orientation: portrait)  {  }
+                @media (orientation: landscape) {  }
+            }
+        }
+
+        /* ============================================================
+           III. INTERMEDIÁRIO DESKTOP (XL + 2XL) - A partir de 1200px
+           ============================================================ */
+        @media screen and (min-width: 1200px) {
+            @media (orientation: portrait)  {  }
+            @media (orientation: landscape) {  }
+
+            /* Específicos */
+            @media screen and (max-width: 1399px) {
+                @media (orientation: portrait)  {  }
+                @media (orientation: landscape) {  }
+            }
+            @media screen and (min-width: 1400px) {
+                @media (orientation: portrait)  {  }
+                @media (orientation: landscape) {  }
+            }
+        }
+    </style></head><body>
+        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="lupa" viewBox="0 0 100 100">
+    <g xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" stroke-width="12" stroke-linecap="round">
+      <circle cx="42" cy="42" r="28"/>
+      <line x1="64" y1="64" x2="85" y2="85"/>
+    </g>
+  </symbol>
+  <symbol id="e-mail" viewBox="0 0 3000 3000">
+    <rect xmlns="http://www.w3.org/2000/svg" x="150" y="750" rx="15" ry="15" style="width: 2700px !important; height:1500px !important; fill: none; stroke: currentColor; stroke-width: 300;"/>
+    <path xmlns="http://www.w3.org/2000/svg" d=" M 150 750 L 2850 750 L 2850 900         L 1580 1500 C 1580 1500 1500 1555 1420 1500         L 1420 1500 L 150 900 Z" style="fill: none; stroke: currentColor; stroke-width: 300; stroke-linejoin: round;"/>
+  </symbol>
+  <symbol id="whatsapp" viewBox="0 0 32 32">
+    <path xmlns="http://www.w3.org/2000/svg" d="M26.576 5.363c-2.69-2.69-6.406-4.354-10.511-4.354-8.209 0-14.865 6.655-14.865 14.865 0 2.732 0.737 5.291 2.022 7.491l-0.038-0.070-2.109 7.702 7.879-2.067c2.051 1.139 4.498 1.809 7.102 1.809h0.006c8.209-0.003 14.862-6.659 14.862-14.868 0-4.103-1.662-7.817-4.349-10.507l0 0zM16.062 28.228h-0.005c-0 0-0.001 0-0.001 0-2.319 0-4.489-0.64-6.342-1.753l0.056 0.031-0.451-0.267-4.675 1.227 1.247-4.559-0.294-0.467c-1.185-1.862-1.889-4.131-1.889-6.565 0-6.822 5.531-12.353 12.353-12.353s12.353 5.531 12.353 12.353c0 6.822-5.53 12.353-12.353 12.353h-0zM22.838 18.977c-0.371-0.186-2.197-1.083-2.537-1.208-0.341-0.124-0.589-0.185-0.837 0.187-0.246 0.371-0.958 1.207-1.175 1.455-0.216 0.249-0.434 0.279-0.805 0.094-1.15-0.466-2.138-1.087-2.997-1.852l0.010 0.009c-0.799-0.74-1.484-1.587-2.037-2.521l-0.028-0.052c-0.216-0.371-0.023-0.572 0.162-0.757 0.167-0.166 0.372-0.434 0.557-0.65 0.146-0.179 0.271-0.384 0.366-0.604l0.006-0.017c0.043-0.087 0.068-0.188 0.068-0.296 0-0.131-0.037-0.253-0.101-0.357l0.002 0.003c-0.094-0.186-0.836-2.014-1.145-2.758-0.302-0.724-0.609-0.625-0.836-0.637-0.216-0.010-0.464-0.012-0.712-0.012-0.395 0.010-0.746 0.188-0.988 0.463l-0.001 0.002c-0.802 0.761-1.3 1.834-1.3 3.023 0 0.026 0 0.053 0.001 0.079l-0-0.004c0.131 1.467 0.681 2.784 1.527 3.857l-0.012-0.015c1.604 2.379 3.742 4.282 6.251 5.564l0.094 0.043c0.548 0.248 1.25 0.513 1.968 0.74l0.149 0.041c0.442 0.14 0.951 0.221 1.479 0.221 0.303 0 0.601-0.027 0.889-0.078l-0.031 0.004c1.069-0.223 1.956-0.868 2.497-1.749l0.009-0.017c0.165-0.366 0.261-0.793 0.261-1.242 0-0.185-0.016-0.366-0.047-0.542l0.003 0.019c-0.092-0.155-0.34-0.247-0.712-0.434z" style="stroke:currentColor;fill:currentColor;"/>
+  </symbol>
+  <symbol id="linkedin" viewBox="0 0 382 382">
+    <path xmlns="http://www.w3.org/2000/svg" style="fill:currentColor;" d="M347.445,0H34.555C15.471,0,0,15.471,0,34.555v312.889C0,366.529,15.471,382,34.555,382h312.889   C366.529,382,382,366.529,382,347.444V34.555C382,15.471,366.529,0,347.445,0z M118.207,329.844c0,5.554-4.502,10.056-10.056,10.056   H65.345c-5.554,0-10.056-4.502-10.056-10.056V150.403c0-5.554,4.502-10.056,10.056-10.056h42.806   c5.554,0,10.056,4.502,10.056,10.056V329.844z M86.748,123.432c-22.459,0-40.666-18.207-40.666-40.666S64.289,42.1,86.748,42.1   s40.666,18.207,40.666,40.666S109.208,123.432,86.748,123.432z M341.91,330.654c0,5.106-4.14,9.246-9.246,9.246H286.73   c-5.106,0-9.246-4.14-9.246-9.246v-84.168c0-12.556,3.683-55.021-32.813-55.021c-28.309,0-34.051,29.066-35.204,42.11v97.079   c0,5.106-4.139,9.246-9.246,9.246h-44.426c-5.106,0-9.246-4.14-9.246-9.246V149.593c0-5.106,4.14-9.246,9.246-9.246h44.426   c5.106,0,9.246,4.14,9.246,9.246v15.655c10.497-15.753,26.097-27.912,59.312-27.912c73.552,0,73.131,68.716,73.131,106.472   L341.91,330.654L341.91,330.654 Z"/>
+  </symbol>
+  <symbol id="arrow" viewBox="0 0 3000 3000">
+    <path xmlns="http://www.w3.org/2000/svg" id="arrow" style="fill:currentColor;stroke:none;" d="M 150 1900 C -100 2100 50 2500 450 2300 L 1950 1300 L 2250 1700 C 2550 2100 2550 2100 2550 1500 L 2550 900 C 2550 600 2550 600 2250 500 L 1650 300 C 1100 150 1100 150 1350 500 L 1650 900 Z"/>
+  </symbol>
+</svg>
+        <header><a class="return" href="/portifolio" style="position:absolute;z-index:6;top:0.3vw;left:0.6vw;font-size:1.5rem;z-index:9;"><i class="fa-solid fa-arrow-left" style="color:#ffffff;"></i></a><h1 class="ttl" id="topo">Meu Comércio</h1><nav class='navegation'><a class='menuButton' href='contato.html'>Contato</a><a class='menuButton' href='sm.html'>Saiba mais...</a></nav></header>
+        <main><section class='hero'><figure id="img"></figure><h1 class="ttl">Conheça Nosso comércio</h1><p>Na Farmácia Farmacêutica, o seu atendimento é a nossa maior prioridade. Nossa equipe está dedicada a oferecer um serviço personalizado e atencioso. Venha viver a diferença de um atendimento que realmente cuida de você e aproveite ofertas especiais feitas para suas necessidades!</p><a>Entre em Contato</a></section><section id='pdt'><h1>Promoções e Ofertas</h1><div><figure id='imgpdt0' ></figure><h2><button class='vr'>ver mais...</button></h2><p></p></div><div><figure id='imgpdt1' ></figure><h2><button class='vr'>ver mais...</button></h2><p></p></div><div><figure id='imgpdt2' ></figure><h2><button class='vr'>ver mais...</button></h2><p></p></div><div><figure id='imgpdt3' ></figure><h2><button class='vr'>ver mais...</button></h2><p></p></div><div><figure id='imgpdt4' ></figure><h2><button class='vr'>ver mais...</button></h2><p></p></div><div><figure id='imgpdt5' ></figure><h2><button class='vr'>ver mais...</button></h2><p></p></div></section>	<div id='banners'><div class='banner'><h1>Nossos Serviços</h1>
+				<aside><h2>Atendimento eficiente</h2>Suporte para resolver dúvidas, problemas ou fornecer informações sobre produtos e serviços.</aside>
+				<aside><h2>Consultoria</h2>Serviços especializados para ajudar empresas ou indivíduos a resolver problemas específicos, melhorar processos ou alcançar objetivos.</aside>
+				<aside><h2>Entrega Rápida</h2>Serviço de entrega eficiente e segura para sua conveniência.</aside>
+				</div>
+			<div class='banner'><h1>Opiniões de clientes</h1>
+				<aside>'Atendimento impecável e produtos de alta qualidade. A melhor farmácia da região!'<h2>- Maria Oliveira</h2></aside>
+				<aside>'Sempre encontro o que preciso e o atendimento é excelente. Recomendo a todos!'<h2>- João Santos</h2></aside>
+                <aside>'Serviço de limpeza impecável, minha casa nunca esteve tão limpa! Super recomendo.'<h2>- Ana Costa</h2></aside>
+                <aside>'Atendimento rápido e eficiente. Sempre solucionam minhas dúvidas com muita paciência.'<h2>- João Silva</h2></aside>
+				</div>
+			 <div id='contact'><h1>Entre em Contato</h1>
+                <form id="ctt1" onsubmit="sendwhats('ctt1Nm','ctt1Mm','62994805555'); return false;">
+        <input id="ctt1Nm" type="text" placeholder="Seu nome">
+        <textarea id="ctt1Mm" placeholder="Sua mensagem"></textarea>
+        <input id="ctt1St" value="ENVIAR" type="submit">
+    </form>
+                </div></div></main>
+        <footer><h1> Desenvolvido por: @victor.macedo2001 | E-mail:victormacedo2001@hotmail.com <a href='#topo' style='font-size:1.5rem;position:absolute;bottom:1;right:1vw;'><i class='fa-solid fa-arrow-up'style='color:#ffffff;'></i></a></footer><script>/**
+ * Adiciona um listener ao carregar a página para aplicar imagens de fundo
+ * a elementos com a classe '.img' e o atributo 'data-bg'.
+ * Este script é carregado em todas as páginas.
+ */
+window.addEventListener('DOMContentLoaded', () => {
+    const backgrounds = document.querySelectorAll('.img');
+    backgrounds.forEach(el => {
+        const bgImage = el.dataset.bg;
+        if (bgImage) {
+            el.style.backgroundImage = bgImage;
+            el.style.backgroundColor = 'rgba(255,255,255,0)';
+        }
+    });
+});/**
+ * Constrói e abre uma URL do WhatsApp para enviar uma mensagem pré-formatada.
+ * @param {string} nameId - O ID do campo de input do nome.
+ * @param {string} messageId - O ID do campo de textarea da mensagem.
+ * @param {string} phone - O número de telefone de destino (com código do país).
+ */
+function sendwhats(nameId, messageId, phone) {
+    const name = document.getElementById(nameId).value;
+    const message = document.getElementById(messageId).value;
+
+    // Codifica os componentes da URL para garantir que caracteres especiais funcionem
+    const encodedName = encodeURIComponent(name);
+    const encodedMessage = encodeURIComponent(message);
+
+    const url = `https://api.whatsapp.com/send?phone=${phone}&text=Sou%20*${encodedName}*%0A%0A${encodedMessage}`;
+
+    // Abre a URL em uma nova aba
+    window.open(url, '_blank');
+}
+let lastScrollTop = 0;
+const header = document.querySelector('header .ttl');
+const main = document.querySelector('main');
+
+function handleScroll() {
+    const scrollTop = main.scrollTop;
+
+    if (scrollTop > lastScrollTop) {
+        // Rolando para baixo
+        header.style = 'display:none;opacity:0;';
+    } else {
+        // Rolando para cima
+        header.style= 'display:flex;';
+    }
+    lastScrollTop = scrollTop;
+}
+
+// Adicionando o evento de rolagem ao main
+main.addEventListener('scroll', function() {
+    if (window.innerWidth < 990) {
+        handleScroll();
+    }
+});
+
+// Opcional: adicionar um listener para redimensionamento da janela
+window.addEventListener('resize', function() {
+    if (window.innerWidth >= 990) {
+        // Caso a largura seja maior ou igual a 990px, reseta a transformação do cabeçalho
+        header.style.display = 'flex';
+    }
+});
+
+        </script></body>
+</html>
