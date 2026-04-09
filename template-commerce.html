@@ -249,8 +249,8 @@ window.addEventListener('resize', function() {
   
   // Estilo do botão
   Object.assign(botao.style, {
-	width:'10cqw',
-	height:'15cqw',
+	width:'3cqw',
+	height:'3.9cqw',
     position: 'fixed',
     top: '20px',
     left: '20px',
@@ -266,7 +266,7 @@ window.addEventListener('resize', function() {
 	opacity: '0.6'
   });
 const style = document.querySelector('style');
-style.innerHtml = "#btnPortifolio:hover{opacity:0.9;}";						
+style.innerHTML = "#btnPortifolio:hover{opacity:0.9;}";						
   // Ação de clique
   botao.onclick = () => {
     window.location.href = 'https://victormacedo.dev.br/portifolio/';
