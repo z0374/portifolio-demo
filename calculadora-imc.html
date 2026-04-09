@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+ 
+<head>
+    <meta charset="UTF-8">
+    <title>calculadora IMC</title>
+    <meta name='viewport' content='width=device-width,initial-scale=1.0'>
+<!--script src="https://kit.fontawesome.com/b42a2f6a22.js" crossorigin="anonymous"></script-->
+</head>
+ 
+<script>
+    
+    const abaixo = ' Conforme indicado pelo Índice de Massa Corporal (IMC), sugere uma possível desnutrição.';
+    const acima = 'conforme avaliada pelo Índice de Massa Corporal (IMC), indica um sobrepeso que pode acarretar riscos à saúde.';
+    let ps;
+    let al;
+    index();
+    let input='ps';
+   let cmpAl;
+   let cmpPs;
+ 
+    
+ 
+    function est(gatim, jabutim, coelhim, doguim) {
+        let html = document.querySelector(gatim);
+        html.innerHTML = jabutim;
+        html.setAttribute(coelhim, doguim);
+    }
+ 
+    function pgn() {
+       document.write('body');
+        est("head", `<style>
+            * {
+                outline: none;
+                font-family: Comic Sans MS, Arial, sans-serif;
+                font-weight: bolder;
+                color: #030101;
+                box-sizing: border-box;
+                padding: 0;
+                margin: 0;
+                border: none;
+            }
+            body {
+                height:100vh;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                background-color: rgb(196, 46, 41, 0.72);
+            }
+            h2 {
+                height:0.9rem;
+                color: #3C2828;
+                text-align: center;
+                font-size: 0.9rem;
+            }
+            #ps, #al {
+                width: 7.2vw;
+                height: 2.1vw;
+                padding: 1vw;
+                border: solid 0.21vw #532D30;
+                border-radius: 6px;
+                background-color: #C2686E;
+                text-align: center;
+                font-size: 1.8vw;
+                color: white;
+                -moz-appearance: textfield;
+            }
+            textarea{overflow:hidden;}
+            textarea::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+            }
+            #ps {
+                margin: 0 1.5vw 0 0;
+            }
+            #td, #rst {
+                display: flex;
+                width: 60vw;
+                min-height: 30vw;
+                background-color: #A6483F;
+                flex-direction: column;
+                padding: 3vw 0;
+                align-items: center;
+                justify-content: space-between;
+            }
+            #rst {
+                justify-content: space-evenly;
+            }
+            .ps {
+                margin: 0 6vw 0 0.6vw;
+            }
+            button {
+                border-radius: 15px;
+                padding: 0.9vw 3vw;
+                background-color: #8C3230;
+                font-size: 1.5vw;
+                border: solid 0.3vw #8C3230;
+                cursor: pointer;
+            }
+            button:selected {
+                opacity: 0.51;
+                border-color: #612729;
+            }
+            .return {
+                opacity: 0.09;
+            }
+            .return:hover {
+                opacity: 0.9;
+            }
+        
+    @media(max-width:900px){
+       #rst,#td{width:99%;min-height:60vh;margin:0;padding;0 3rem;}
+        #td div{display:grid;grid-template-row:1fr 1fr;grid-template-column:1fr 1fr;}#td label{grid-row:1;}
+        #td textarea{width:30vw;height:15vw;font-size:3rem;grid-row:2;resize:none;pointer-events:;}
+        #td textarea:focus{border:solid 1rem red;opacity:0.6;}
+        button{width:60%;height:3rem;font-size:1.5rem;}
+       #tcld{width:51vw;padding:0;} #tcld .tcls{width:30%;padding:0;text-align:center;margin:1% 1%}
+        #tcld>:last-child{width:60%;font-size:1.2rem;}
+        
+        
+    }
+        
+        </style>`);
+        est("body", "<div></div>", "id", "0");
+    }
+ 
+    function index() {
+        pgn();
+        est("div", "<a class='return' href='/portifolio' style='position:absolute;top:0.3vw;left:0.6vw;font-size:1.5rem;'><i class='fa-solid fa-arrow-left'></i></a><h1></h1><h2></h2><div><label class='ps'>Peso (kg)</label><label>Altura (cm)</label><br><textarea id='ps' value='1' inputmode='numeric' pattern='\d+' maxlength='3' rows='1' cols='3'></textarea><textarea id='al' inputmode='numeric' pattern='\d+' rows='1' cols='3' maxlength='3'></textarea></div><button></button>"+teclado(), "id", "td");
+        est("h1", "Calcule seu IMC", "id", "in");
+        est("button", "CALCULAR", "onclick", "calc()");
+        document.getElementById('ps').style.border='solid 0.12rem red';
+        
+        document.querySelectorAll('.tcls').forEach(num=>{
+     num.addEventListener('click',function(){
+         if(num.textContent==='Intercambiar'){
+if(input==='ps'){input='al';document.getElementById('al').value='';document.getElementById('ps').removeAttribute('style');document.getElementById('al').style.border='solid 0.12rem red';return;}
+if(input==='al'){input='ps';document.getElementById('ps').value='';document.getElementById('al').removeAttribute('style');document.getElementById('ps').style.border='solid 0.12rem red';return;}
+             return;
+         }else{
+         if(input==='ps'){
+             document.querySelector('#ps').value+=num.textContent;
+         return;}
+         if(input==='al'){
+             document.querySelector('#al').value+=num.textContent;
+         return;}else{
+          document.querySelector('#al').value='###';
+          document.querySelector('#ps').value+='###';
+         return;}
+         }
+     
+       });}); 
+    }
+ 
+    
+    function calc() {
+        ps = document.getElementById('ps').value;
+        al = document.getElementById('al').value / 100;
+ 
+        let IMC = ps / (al * al);
+        if (isNaN(IMC) || IMC == '' || IMC == 0 || IMC=='Infinity') {
+            return est('h2', 'Digite seu peso e altura!');
+        }
+ 
+        est("div", "<h1></h1><h2></h2><br><button></button>", "id", "rst");
+        est('h1', 'O seu IMC é ' + parseFloat(IMC));
+        
+        if (IMC < 18.5) {
+            est("h2", abaixo);
+        } else if (IMC >= 35) {
+            est("h2", acima);
+        } else {
+            est("h2", "Seu indice de massa coporal esta excelente");
+        }
+ input='ps'; 
+        est("button", "reiniciar", "onclick", "index()");
+    }
+ 
+function teclado() {
+    const tcld = document.createElement('section');
+    tcld.setAttribute('id', 'tcld');
+ 
+    const ltr = document.querySelector("textarea");
+    tcld.innerHTML = '';
+ 
+    for (let i = 0; i <= 10; i++) {
+        const tcls = document.createElement('button');
+        tcls.classList.add('tcls');
+ 
+        // Verifica se i é 10 para alterar o texto do botão
+        if (i === 10) {
+            tcls.textContent = 'Intercambiar';
+        } else {
+            tcls.textContent = i;
+            
+        }
+ 
+        // Adiciona um evento de clique no botão
+        
+                
+ 
+        tcld.append(tcls);
+    }
+ 
+    // Retorna o HTML da seção criada
+    return tcld.outerHTML;
+}
+
+</script>
