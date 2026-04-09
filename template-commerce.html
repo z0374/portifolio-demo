@@ -242,9 +242,9 @@ window.addEventListener('resize', function() {
     }
 });
 
-			        function btnReturnPortifolio() {
+function btnReturnPortifolio() {
   const botao = document.createElement('button');
-  botao.setAttribute('id', 'btnPortifolio');
+  botao.setAttribute.id = 'btnPortifolio';
   botao.innerText = 'Portfólio';
   
   // Estilo do botão
@@ -265,8 +265,10 @@ window.addEventListener('resize', function() {
     boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
 	opacity: '0.6'
   });
+
 const style = document.querySelector('style');
-style.innerHTML = "#btnPortifolio:hover{opacity:0.9;}";						
+style.innerHTML += "\n#btnPortifolio:hover { opacity: 0.9; }";
+						
   // Ação de clique
   botao.onclick = () => {
     window.location.href = 'https://victormacedo.dev.br/portifolio/';
