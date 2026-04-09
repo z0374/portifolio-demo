@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <!--script src="https://kit.fontawesome.com/b42a2f6a22.js" crossorigin="anonymous"></script-->
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            outline: none;
+            padding: 0;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0px 0px 15px rgba(60,60,60,0.6));
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            border: none;
+            display: flex;
+            background-color: #2E3D43;
+        }
+
+        #app {
+            width: 51vw;
+            padding: 2.1vw;
+            border: solid 1px black;
+            font-weight: bold;
+            display: flex;
+            flex-wrap: wrap;
+            background-color: #435761;
+            border-radius: 3vw;
+        }
+
+        button {
+            width: 12vw;
+            height: 12vw;
+            margin: 1vw;
+            cursor: pointer;
+            border: solid 1px black;
+            font-weight: bold;
+            opacity: 0.51;
+            border-radius: 12px;
+            font-size: 3vw;
+        }
+
+        button:hover,
+        button:focus {
+            opacity: 1;
+            border: none;
+        }
+
+        .return {
+            opacity: 0.09;
+        }
+
+        .return:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+    <a class="return" href="/portifolio" style="position:absolute;top:0.3vw;left:0.6vw;font-size:1.5rem;"><i
+            class="fa-solid fa-arrow-left"></i></a>
+    <section id="app"></section>
+
+    <script>
+        soundmidi();
+        async function soundmidi() {
+            const tracks = [
+                { "src": "https://z0374.github.io/fastAssets/wav/tracks/pom.wav", "nome": "Pom", "tecla": 7 },
+                { "src": "https://z0374.github.io/fastAssets/wav/tracks/clap.wav", "nome": "Clap", "tecla": 8 },
+                { "src": "https://z0374.github.io/fastAssets/wav/tracks/tim.wav", "nome": "Tim", "tecla": 9 },
+                { "src": "https://z0374.github.io/fastAssets/wav/tracks/puff.wav", "nome": "Puff", "tecla": 4 },
+                { "src": "https://z0374.github.io/fastAssets/wav/tracks/splash.wav", "nome": "Splash", "tecla": 5 },
+                { "src": "https://z0374.github.io/fastAssets/wav/tracks/toim.wav", "nome": "Toim", "tecla": 6 },
+                { "src": "https://z0374.github.io/fastAssets/wav/tracks/psh.wav", "nome": "Psh", "tecla": 1 },
+                { "src": "https://z0374.github.io/fastAssets/wav/tracks/tic.wav", "nome": "Tic", "tecla": 2 },
+                { "src": "https://z0374.github.io/fastAssets/wav/tracks/tom.wav", "nome": "Tom", "tecla": 3 }
+            ];
+
+            let app = document.getElementById('app');
+            const cor = ['#ff6666', '#00ccff', '#ff00ff', '#ff9900', '#ff0099', '#ccff33', '#ffff00', '#ff33cc', '#33ff33'];
+
+            // Web Audio API Context
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const buffers = {};
+
+            // Função para carregar o som na memória
+            async function loadSound(index, url) {
+                const response = await fetch(url);
+                const arrayBuffer = await response.arrayBuffer();
+                buffers[index] = await audioCtx.decodeAudioData(arrayBuffer);
+            }
+
+            // Função para tocar instantaneamente
+            function playSound(index) {
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                if (buffers[index]) {
+                    const source = audioCtx.createBufferSource();
+                    source.buffer = buffers[index];
+                    source.connect(audioCtx.destination);
+                    source.start(0);
+                }
+            }
+
+            // Gera os botões (Mantendo seu innerHTML)
+            for (let i = 0; i < tracks.length; i++) {
+                app.innerHTML += `<button id='b${i}' style='background-color:${cor[i]}'>${tracks[i].nome}</button>`;
+                loadSound(i, tracks[i].src);
+            }
+
+            // Atribui os eventos (Após gerar o HTML para evitar perda de listeners)
+            for (let i = 0; i < tracks.length; i++) {
+                let button = document.getElementById(`b${i}`);
+
+                button.addEventListener('click', () => {
+                    playSound(i);
+                });
+
+                document.addEventListener('keydown', (event) => {
+                    if (event.code === 'Numpad' + tracks[i].tecla) {
+                        playSound(i);
+                        button.focus();
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>
