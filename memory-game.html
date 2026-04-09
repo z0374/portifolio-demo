@@ -53,14 +53,37 @@
     const playerName = document.createElement('input');
     //const alfabeto=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
 let baralho =[];	
-    <?php $dados = fopen("https://docs.google.com/spreadsheets/d/e/2PACX-1vQfGbE_vVzFBtTUhXe6yai1u2E3UWvVXadhsdeNP_lspinH76xFuUJhiyyy_aKNhC9_MrHi0jHXXOb-/pub?gid=0&single=true&output=csv", "r");$cbcl=fgetcsv($dados, 1000, ",");while($row=fgetcsv($dados, 1000, ",")){$artes[]=array_combine($cbcl, $row);}fclose($dados); $length=count($artes);for($i=0;$i<$length;$i++){
-    echo "baralho.push(
-        {
-            img:'".$artes[$i]['IMG']."',
-            lgd:`".$artes[$i]['LGD']."`
-        }
-        );"
-            ;} ?>;
+    // Função para carregar o CSV do Google Sheets e montar o baralho
+async function carregarBaralho() {
+  const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQfGbE_vVzFBtTUhXe6yai1u2E3UWvVXadhsdeNP_lspinH76xFuUJhiyyy_aKNhC9_MrHi0jXXOb-/pub?gid=0&single=true&output=csv";
+  const response = await fetch(url);
+  const csvText = await response.text();
+
+  const linhas = csvText.trim().split("\n");
+  const cabecalho = linhas.shift().split(","); // primeira linha = cabeçalho
+
+  const baralho = linhas.map(linha => {
+    const valores = linha.split(",");
+    const obj = {};
+    cabecalho.forEach((col, i) => {
+      obj[col] = valores[i];
+    });
+    return {
+      img: obj["IMG"],
+      lgd: obj["LGD"]
+    };
+  });
+
+  return baralho;
+}
+
+// Exemplo de uso
+let baralho = [];
+carregarBaralho().then(b => {
+  baralho = b;
+  console.log(baralho);
+  // aqui você pode chamar game() ou index() se quiser
+});
     console.log(baralho);
 let revelada=[];let encontrada=[];let cartas=[];
 let nv=0;let recorde;
