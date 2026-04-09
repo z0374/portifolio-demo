@@ -55,7 +55,7 @@
 let baralho =[];	
     // Função para carregar o CSV do Google Sheets e montar o baralho
 async function carregarBaralho() {
-  const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQfGbE_vVzFBtTUhXe6yai1u2E3UWvVXadhsdeNP_lspinH76xFuUJhiyyy_aKNhC9_MrHi0jXXOb-/pub?gid=0&single=true&output=csv";
+  const url = "https://portifolio.victormacedo.dev.br/assets/waranasweb-imagebank.csv";
   const response = await fetch(url);
   const csvText = await response.text();
 
@@ -77,12 +77,9 @@ async function carregarBaralho() {
   return baralho;
 }
 
-// Exemplo de uso
-let baralho = [];
 carregarBaralho().then(b => {
   baralho = b;
   console.log(baralho);
-  // aqui você pode chamar game() ou index() se quiser
 });
     console.log(baralho);
 let revelada=[];let encontrada=[];let cartas=[];
