@@ -237,27 +237,33 @@ window.addEventListener('keyup', function(event) {
     }
 });
 
-                function btnReturnPortifolio() {
+function btnReturnPortifolio() {
   const botao = document.createElement('button');
-  
+  botao.id = 'btnPortifolio';
   botao.innerText = 'Portfólio';
   
   // Estilo do botão
   Object.assign(botao.style, {
+	width:'fit-content',
+	height:'fit-content',
     position: 'fixed',
-    top: '20px',
-    left: '20px',
+    top: '9px',
+    left: '12px',
     zIndex: '9999',
     padding: '10px 14px',
-    backgroundColor: '#111',
-    color: '#fff',
+    backgroundColor: '#9cc7d7',
+    color: '#2e3d43',
     border: 'none',
     borderRadius: '8px',
     cursor: 'pointer',
-    fontSize: '14px',
-    boxShadow: '0 2px 6px rgba(0,0,0,0.2)'
+    fontSize: '15px',
+    boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+	opacity: '0.3'
   });
 
+const style = document.querySelector('style');
+style.innerHTML += "\n#btnPortifolio:hover { opacity: 0.9 !important; }";
+						
   // Ação de clique
   botao.onclick = () => {
     window.location.href = 'https://victormacedo.dev.br/portifolio/';
