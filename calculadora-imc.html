@@ -205,4 +205,35 @@ function teclado() {
     return tcld.outerHTML;
 }
 
+ function criarBotaoPortifolio() {
+  const botao = document.createElement('button');
+  
+  botao.innerText = 'Portfólio';
+  
+  // Estilo do botão
+  Object.assign(botao.style, {
+    position: 'fixed',
+    top: '20px',
+    left: '20px',
+    zIndex: '9999',
+    padding: '10px 14px',
+    backgroundColor: '#111',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontSize: '14px',
+    boxShadow: '0 2px 6px rgba(0,0,0,0.2)'
+  });
+
+  // Ação de clique
+  botao.onclick = () => {
+    window.location.href = 'https://victormacedo.dev.br/portifolio/';
+  };
+
+  document.body.appendChild(botao);
+}
+
+// Executa quando a página carregar
+window.addEventListener('DOMContentLoaded', criarBotaoPortifolio);
 </script>
