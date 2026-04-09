@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="UTF-8">
+    <title>AnonNumber - Game</title>
+    <!--script src="https://kit.fontawesome.com/b42a2f6a22.js" crossorigin="anonymous"></script-->
+	<style>*{
+text-align:center; 
+margin:0; padding:0; font-family:arial, sans-serif; display:auto;  box-sizing:border-box;
+}
+body{height:100vh; 
+	background-color:#D5DED9;
+	display:flex;	
+	align-items:center; 
+	justify-content:center;
+	opacity:0.9;
+}
+#td{
+	display:flex;
+	flex-direction:column;
+	align-items:center; 
+	justify-content: space-evenly;
+	flex-wrap:wrap;
+	width:66vw;
+	height:72vh;
+	border:solid 6px #5D513F;
+	background-color:#99B2B7;
+	opacity:0.9;
+}
+
+h1{
+	font-size:9vw; color:#3C3930;
+}
+p{
+
+	font-size:4.2vw;
+	color:#656A67;
+	text-align:center;
+}
+#cmp{
+	width:54vw;
+	height:9vh;
+	background-color:#D5DED9;
+	font-size:9vh;
+	font-weight:bold;
+	border:none;
+
+}
+#in{width:100%;}
+#in button{
+	width:42vw;
+	height:6vh;
+	font-size:4.2vh;
+	font-weight:bold;
+	border:none;
+	background-color:#7A6A53;color:#3C3930;
+	cursor:pointer;
+}#in button:hover{opacity:0.3;}
+#fls{color:red;}
+#vdd{color:green;} .return{opacity:0.09;color:#5D513F;}.return:hover{opacity:0.9;}
+</style>
+</head>
+
+<body>
+    <a class="return" href="/portifolio" style="position:absolute;top:0.3vw;left:0.6vw;font-size:1.5rem;"><i class="fa-solid fa-arrow-left"></i></a>
+<div id="td">
+	<h1></h1>
+	<p></p>
+	<input id="cmp" type="number" hidden>
+	<div id="in" hidden></div> 
+   </div>
+	<script>nj();
+
+let nmmx ='';
+let sctnm = '';
+var tntvs = 1;
+
+function nmmxx(){
+	nmmx = document.querySelector('input').value;
+	sctnm = nvnm();
+	mn('Anon Number', `Escolha um numero de 1 a ${nmmx}`);
+	lmpcmp();
+	document.getElementById('in').innerHTML =('<button id="in" onclick="vrct()">CHUTAR</button>');
+}
+
+
+
+
+function mn(ht, pt, hid){
+	extxt('h1', ht,hid);
+	extxt('p', pt);
+}
+
+function extxt(tag, txt, nid){
+	let cmp = document.querySelector(tag);
+	cmp.innerHTML = txt;
+	cmp.setAttribute('id', nid);
+}
+
+
+
+function vrct() {
+	let nmct = document.querySelector('input').value;
+	if(nmct == sctnm){
+		mn('Correto!', `O número era ${sctnm} acertou na ${tntvs}ª tentativa`,'vdd');
+		document.getElementById('cmp').setAttribute('hidden', 'true');
+		document.getElementById('in').innerHTML =('<button onclick="nj()" id="nj">Novo Jogo</button>');
+		lmpcmp();
+
+	}else{
+		if(nmct > sctnm){
+		mn('É menor', `Escolha um numero de 1 a ${nmmx}`, 'fls');
+	}else{
+		mn('É maior', `Escolha um numero de 1 a ${nmmx}`, 'fls');
+}
+
+tntvs++
+lmpcmp();
+	}
+}
+function nvnm(){
+	return parseInt(Math.random() * nmmx + 1);
+}
+
+function lmpcmp(){
+	nmct = document.querySelector('input');
+	nmct.value ='';
+	
+}
+function nj(){
+	mn('Anon Number', 'Escolha o número limite');
+	document.getElementById('cmp').removeAttribute('hidden');
+	document.getElementById('in').removeAttribute('hidden');
+	document.getElementById('in').innerHTML =('<button  onclick="nmmxx()">INICIAR</button>');
+	return tntvs = 1;
+	lmpcmp();
+
+}</script>
+</body>
+</html>
