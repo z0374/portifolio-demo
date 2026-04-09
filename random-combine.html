@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<!--script src="https://kit.fontawesome.com/b42a2f6a22.js" crossorigin="anonymous" defer></script-->
+<style>
+*{margin:0; padding:0;font-weight:bold; border:none;box-sizing:border-box; flex-direction:column; align-items:center; justify-content:center; font-family:arial, sans serif; outline:none;
+}
+body{
+	background-color:rgba(255,240,240,0.6);
+	width:100vw; height:100vh;
+	display:flex;
+
+}
+.td{background-color:#B8CED1;width:51vw;height:35vw;display:flex;border:solid 1px black; padding:3vw 9vw; justify-content:start;}
+.elm{margin:3vh 0;}
+h1{font-size:3vw; color:#382045; font-family:comic sans MS,sans serif;}
+h2{font-weight:normal;}
+label{color:#472857;}
+input{background-color:#FFFAFA;width:30vw;height:4.2vw;margin-top:1.2vh;font-size:3vw;border-radius:12px;padding-left:1.5vw}
+button{color:#FFF0F0;background-color:#41244F;width:12vw; padding:1.2vw 0; margin:0 1vw; border-radius:12px;}
+button:hover{opacity:0.6;}
+p{font-size:1.2vw;}
+.return{opacity:0.09;}.return:hover{opacity:0.9;}
+</style>
+</head>
+<body align="center">
+    <a class="return" href="/portifolio" style="position:absolute;top:0.3vw;left:0.6vw;font-size:1.5rem;"><i class="fa-solid fa-arrow-left"></i></a>
+<div class="td">
+	<h1 >Random Combine</h1>
+	<br><h2 id="lsrt"></h2>
+<div id="jg">
+		<br><label class="elm" id="rtn">Escolha um valor</label><br>
+		<input type="text" autofocus><br>
+		
+		<button class="elm" onclick="adc()">Adicionar</button>&nbsp;<button  class="elm" onclick="dfn()">Sortear</button><br>
+		<label class="elm" id="iamg"></label>
+	<p id="lamg"></p>
+</div><button  class="elm" id="rs" onclick="rs()" hidden>Reiniciar</button>
+</div>
+
+<script>
+	let cmp = document.querySelector('input');
+	let lamg = document.getElementById('lamg');
+	let rtn = document.getElementById('rtn');
+	let iamg = document.getElementById('iamg');
+	amgs = [];
+
+function adc(){
+cmp.value = rspc(cmp.value);
+if(cmp.value == ''){
+	rtn.innerHTML = "<font color='#B2435A'>Você não digitou um valor!</font>";
+	cmp.focus();
+	return;
+}
+if(amgs.includes(cmp.value)){
+	rtn.innerHTML = "<font color='#B2435A'>Este nome ja foi adicionado</font>";
+	cmp.value = '';
+	cmp.focus();
+	return;
+}
+iamg.innerHTML = "amigos incluídos";
+if(lamg.textContent == ''){
+	lamg.textContent = cmp.value;
+}else{
+	lamg.textContent = lamg.textContent + ' 🐳 '+ cmp.value;
+}
+
+amgs.push(cmp.value);
+cmp.value = '';
+cmp.focus();
+rtn.innerHTML = "Escolha um valor";
+}
+
+function dfn(){
+    if(lamg == 0 || amgs.length <= 3){rtn.innerHTML = "<font color='#B2435A'>Adicione ao menos 4 valores</font>"; return}
+    
+	dsr(amgs);
+	let lsrt = document.getElementById('lsrt'); 
+for(let i = 0; i < amgs.length; i++){
+	if(i == amgs.length - 1){
+		lsrt.innerHTML = "<font color='#382045'><u>Resultado</u></font><br><b>" + lsrt.innerHTML + amgs[i] + ' & ' + amgs[0] + ' ;</b><br><br> ';	
+}else{
+	lsrt.innerHTML = lsrt.innerHTML + amgs[i] + ' & ' + amgs[i + 1] + ' ; <i class="fa-solid fa-heart"></i> ; '}	
+	}
+amgs = [];
+document.getElementById('jg').setAttribute('hidden', 'true'); 
+document.getElementById('rs').removeAttribute('hidden');
+lamg.textContent = '';
+}
+
+function dsr(lista) {
+    for (let indice = lista.length; indice; indice--) {
+        const indiceAleatorio = Math.floor(Math.random() * indice);
+        [lista[indice - 1], lista[indiceAleatorio]] = [lista[indiceAleatorio], lista[indice - 1]];
+    }
+}
+
+function rs(){
+	document.getElementById('rs').setAttribute('hidden', 'true'); 
+	document.getElementById('jg').removeAttribute('hidden');
+	rtn.innerHTML = 'Escolha um valor';
+	lsrt.innerHTML = '';
+	iamg.innerHTML = "";
+}
+function rspc(pl){
+    pl = pl.trim().replace(/\s+/g, ' ');
+    return pl;
+}
+
+</script>
+
+</body>
+</html>
