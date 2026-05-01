@@ -1,1 +1,94 @@
-.
+
+async function soundmidi() {
+
+    const uri_assets = "https://assets.victormacedo.dev.br";
+    const wavT = "wav/tracks";
+
+    const tracks = [
+        { src: "pom", nome: "Pom", tecla: 7 },
+        { src: "clap", nome: "Clap", tecla: 8 },
+        { src: "tim", nome: "Tim", tecla: 9 },
+        { src: "puff", nome: "Puff", tecla: 4 },
+        { src: "splash", nome: "Splash", tecla: 5 },
+        { src: "toim", nome: "Toim", tecla: 6 },
+        { src: "psh", nome: "Psh", tecla: 1 },
+        { src: "tic", nome: "Tic", tecla: 2 },
+        { src: "tom", nome: "Tom", tecla: 3 }
+    ];
+
+    const cor = ['#ff6666','#00ccff','#ff00ff','#ff9900','#ff0099','#ccff33','#ffff00','#ff33cc','#33ff33'];
+
+    const app = document.getElementById('app');
+
+    // 🔥 AudioContext otimizado
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)({
+        latencyHint: 'interactive'
+    });
+
+    const buffers = {};
+
+    // 🔊 Carregar áudio
+    async function loadSound(index, url) {
+        const response = await fetch(url);
+        const arrayBuffer = await response.arrayBuffer();
+        buffers[index] = await audioCtx.decodeAudioData(arrayBuffer);
+    }
+
+    // ▶️ Tocar áudio
+    function playSound(index) {
+        if (!buffers[index]) return;
+
+        const source = audioCtx.createBufferSource();
+        source.buffer = buffers[index];
+        source.connect(audioCtx.destination);
+        source.start(0);
+    }
+
+    // ⚡ Warm-up (remove delay inicial)
+    function warmUp(index) {
+        const source = audioCtx.createBufferSource();
+        source.buffer = buffers[index];
+        source.connect(audioCtx.destination);
+        source.start(0);
+    }
+
+    // 🎛️ Criar botões + carregar áudio
+    for (let i = 0; i < tracks.length; i++) {
+        const trackUrl = `${uri_assets}/${wavT}/${tracks[i].src}.wav`;
+
+        app.innerHTML += `<button id="b${i}" style="background:${cor[i]}">${tracks[i].nome}</button>`;
+
+        await loadSound(i, trackUrl); // 🔥 garante carregamento completo
+    }
+
+    // 🔥 Warm-up geral
+    for (let i = 0; i < tracks.length; i++) {
+        warmUp(i);
+    }
+
+    // 🔓 desbloqueia áudio no primeiro clique
+    document.addEventListener('click', () => {
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+    }, { once: true });
+
+    // 🖱️ eventos de clique
+    for (let i = 0; i < tracks.length; i++) {
+        const button = document.getElementById(`b${i}`);
+        button.addEventListener('click', () => playSound(i));
+    }
+
+    // ⌨️ teclado (corrigido)
+    document.addEventListener('keydown', (event) => {
+        for (let i = 0; i < tracks.length; i++) {
+            if (event.code === 'Numpad' + tracks[i].tecla) {
+                playSound(i);
+                document.getElementById(`b${i}`).focus();
+            }
+        }
+    });
+}
+
+// iniciar
+soundmidi();
