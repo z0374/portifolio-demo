@@ -70,16 +70,18 @@
     <script>
         soundmidi();
         async function soundmidi() {
+const uri_Assets = "https://assets.victormacedo.dev.br";
+const wavT = ("wav/tracks");
             const tracks = [
-                { "src": "https://z0374.github.io/fastAssets/wav/tracks/pom.wav", "nome": "Pom", "tecla": 7 },
-                { "src": "https://z0374.github.io/fastAssets/wav/tracks/clap.wav", "nome": "Clap", "tecla": 8 },
-                { "src": "https://z0374.github.io/fastAssets/wav/tracks/tim.wav", "nome": "Tim", "tecla": 9 },
-                { "src": "https://z0374.github.io/fastAssets/wav/tracks/puff.wav", "nome": "Puff", "tecla": 4 },
-                { "src": "https://z0374.github.io/fastAssets/wav/tracks/splash.wav", "nome": "Splash", "tecla": 5 },
-                { "src": "https://z0374.github.io/fastAssets/wav/tracks/toim.wav", "nome": "Toim", "tecla": 6 },
-                { "src": "https://z0374.github.io/fastAssets/wav/tracks/psh.wav", "nome": "Psh", "tecla": 1 },
-                { "src": "https://z0374.github.io/fastAssets/wav/tracks/tic.wav", "nome": "Tic", "tecla": 2 },
-                { "src": "https://z0374.github.io/fastAssets/wav/tracks/tom.wav", "nome": "Tom", "tecla": 3 }
+                { "src": "pom", "nome": "Pom", "tecla": 7 },
+                { "src": "clap", "nome": "Clap", "tecla": 8 },
+                { "src": "tim", "nome": "Tim", "tecla": 9 },
+                { "src": "puff", "nome": "Puff", "tecla": 4 },
+                { "src": "splash", "nome": "Splash", "tecla": 5 },
+                { "src": "toim", "nome": "Toim", "tecla": 6 },
+                { "src": "psh", "nome": "Psh", "tecla": 1 },
+                { "src": "tic", "nome": "Tic", "tecla": 2 },
+                { "src": "tom", "nome": "Tom", "tecla": 3 }
             ];
 
             let app = document.getElementById('app');
@@ -109,8 +111,9 @@
 
             // Gera os botões (Mantendo seu innerHTML)
             for (let i = 0; i < tracks.length; i++) {
+const track = uri_assets + "/" + wavT + "/" + tracks[i].src + "." + wavT.split("/")[0]
                 app.innerHTML += `<button id='b${i}' style='background-color:${cor[i]}'>${tracks[i].nome}</button>`;
-                loadSound(i, tracks[i].src);
+                loadSound(i, track);
             }
 
             // Atribui os eventos (Após gerar o HTML para evitar perda de listeners)
