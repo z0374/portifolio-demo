@@ -43,10 +43,7 @@ function soundmidi() {
 
     document.addEventListener('click', () => unlock(audioCtx), { once: true });
 
-    const play = (i) => {
-        if (!buffers[i]) return;
-        playSound(audioCtx, buffers, i);
-    };
+    const play = (i) => playSound(audioCtx, masterGain, buffers, i);
 
     bindClicks(tracks, play);
     bindKeyboard(tracks, play);
