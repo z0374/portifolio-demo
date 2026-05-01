@@ -114,7 +114,7 @@ const wavT = "wav/tracks";
             for (let i = 0; i < tracks.length; i++) {
 const track = uri_assets + "/" + wavT + "/" + tracks[i].src + "." + wavT.split("/")[0]
                 app.innerHTML += `<button id='b${i}' style='background-color:${cor[i]}'>${tracks[i].nome}</button>`;
-                loadSound(i, track);
+               await loadSound(i, track);
             }
 
             // Atribui os eventos (Após gerar o HTML para evitar perda de listeners)
