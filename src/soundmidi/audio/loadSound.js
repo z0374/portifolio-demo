@@ -1,19 +1,19 @@
-import { getFromMemory, saveToMemory, getFromSession, saveToSession } from './cache.js';
+export default async function loadSound(audioCtx, workletNode, index, url) {
+    const res = await fetch(url);
+    const arrayBuffer = await res.arrayBuffer();
+    const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
 
-export default async function loadSound(audioCtx, buffers, index, url) {
-    let arrayBuffer = getFromMemory(url);
+    // 🔥 pega canal (mono)
+    const channelData = audioBuffer.getChannelData(0);
 
-    if (!arrayBuffer) {
-        arrayBuffer = getFromSession(url);
+    // ⚠️ copiar buffer (evita problemas de memória)
+    const copy = new Float32Array(channelData);
 
-        if (!arrayBuffer) {
-            const res = await fetch(url);
-            arrayBuffer = await res.arrayBuffer();
-            saveToSession(url, arrayBuffer);
+    workletNode.port.postMessage({
+        type: 'load',
+        data: {
+            id: index,
+            buffer: copy
         }
-
-        saveToMemory(url, arrayBuffer);
-    }
-
-    buffers[index] = await audioCtx.decodeAudioData(arrayBuffer);
+    });
 }
