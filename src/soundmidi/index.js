@@ -36,7 +36,7 @@ function soundmidi() {
     const wavT = "wav/tracks";
 
     const app = document.getElementById('app');
-    const audioCtx = createContext();
+    const { audioCtx, masterGain } = createContext();
     const buffers = {};
 
     renderButtons(app, tracks);
