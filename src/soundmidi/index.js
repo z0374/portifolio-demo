@@ -11,7 +11,7 @@ import renderButtons from '@ui/renderButtons.js';
 import bindClicks from '@ui/bindClicks.js';
 import bindKeyboard from '@ui/bindKeyboard.js';
 
-async function soundmidi() {
+function soundmidi() {
 
     const uri_assets = "https://assets.victormacedo.dev.br";
     const wavT = "wav/tracks";
@@ -20,28 +20,44 @@ async function soundmidi() {
     const audioCtx = createContext();
     const buffers = {};
 
-    // 🎨 UI
-    renderButtons(app, tracks, colors);
+    // 🎨 render imediato (SEM BLOQUEIO)
+    renderButtons(app, tracks);
 
-    // 📥 LOAD (paralelo 🔥)
-    await Promise.all(
-        tracks.map((track, i) => {
-            const url = `${uri_assets}/${wavT}/${track.src}.wav`;
-            return loadSound(audioCtx, buffers, i, url);
-        })
-    );
-
-    // ⚡ WARMUP
-    tracks.forEach((_, i) => warmUp(audioCtx, buffers, i));
-
-    // 🔓 UNLOCK
+    // 🔓 unlock
     document.addEventListener('click', () => unlock(audioCtx), { once: true });
 
-    // 🖱️ + ⌨️ EVENTS
-    const play = (i) => playSound(audioCtx, buffers, i);
+    // ▶️ função de play segura
+    const play = (i) => {
+        if (!buffers[i]) return;
+        playSound(audioCtx, buffers, i);
+    };
 
     bindClicks(tracks, play);
     bindKeyboard(tracks, play);
+
+    // 🚀 LOAD EM BACKGROUND (não bloqueia LCP)
+    tracks.forEach((track, i) => {
+
+        const url = `${uri_assets}/${wavT}/${track.src}.wav`;
+
+        loadSound(audioCtx, buffers, i, url)
+            .then(() => {
+                const btn = document.getElementById(`b${i}`);
+
+                // 🎨 ativa botão
+                btn.disabled = false;
+                btn.classList.remove('loading');
+                btn.classList.add('ready');
+                btn.style.background = colors[i];
+
+                // 🔥 warmup individual (melhor que global)
+                warmUp(audioCtx, buffers, i);
+            })
+            .catch(() => {
+                console.warn("Erro ao carregar:", track.src);
+            });
+
+    });
 }
 
 soundmidi();
