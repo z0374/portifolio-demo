@@ -1,11 +1,11 @@
-export default function playSound(audioCtx, buffers, index) {
+export default function playSound(audioCtx, masterGain, buffers, index) {
     if (!buffers[index]) return;
 
     const source = audioCtx.createBufferSource();
     source.buffer = buffers[index];
 
-    source.connect(audioCtx.destination);
+    // 🔥 usa o gain global
+    source.connect(masterGain);
 
-    // 🔥 agendamento preciso
     source.start(audioCtx.currentTime);
 }
