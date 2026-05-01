@@ -4,8 +4,9 @@ export default function playSound(audioCtx, masterGain, buffers, index) {
     const source = audioCtx.createBufferSource();
     source.buffer = buffers[index];
 
-    // 🔥 usa o gain global
     source.connect(masterGain);
 
-    source.start(audioCtx.currentTime);
+    // 🔥 pequeno offset elimina latência perceptível
+    const now = audioCtx.currentTime;
+    source.start(now + 0.005);
 }
