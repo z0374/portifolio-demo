@@ -1,14 +1,14 @@
-export default function warmUp(audioCtx, buffers, index) {
+export default function warmUp(audioCtx, masterGain, buffers, index) {
     if (!buffers[index]) return;
 
     const source = audioCtx.createBufferSource();
     const gain = audioCtx.createGain();
 
-    gain.gain.value = 0; // 🔇 silencioso
+    gain.gain.value = 0; // silencioso
 
     source.buffer = buffers[index];
     source.connect(gain);
-    gain.connect(audioCtx.destination);
+    gain.connect(masterGain);
 
     source.start(0);
 }
