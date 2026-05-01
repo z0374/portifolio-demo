@@ -4,14 +4,23 @@
     <meta charset="utf-8">
     <title>SoundMidi</title>
 
-    <!-- Correção: usar rel="stylesheet" e href -->
     <link rel="stylesheet" href="https://portifolio.victormacedo.dev.br/assets/css/soundmidi/style.css">
+
+    <!-- 🔥 Import Map -->
+    <script type="importmap">
+    {
+        "imports": {
+            "@config/": "/src/soundmidi/config/",
+            "@audio/": "/src/soundmidi/audio/",
+            "@ui/": "/src/soundmidi/ui/"
+        }
+    }
+    </script>
 </head>
 
 <body>
     <section id="app"></section>
 
-    <!-- Script correto -->
-    <script src="https://portifolio.victormacedo.dev.br/src/soundmidi/index.js" defer></script>
+    <script type="module" src="/src/soundmidi/index.js"></script>
 </body>
 </html>
