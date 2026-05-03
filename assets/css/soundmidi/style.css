@@ -17,6 +17,7 @@
 
         #app {
             width: 51vw;
+aspect-ratio:1/1;
             padding: 2.1vw;
             border: solid 1px black;
             font-weight: bold;
