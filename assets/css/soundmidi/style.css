@@ -28,7 +28,7 @@
 
         button {
             width: 12vw;
-            height: 12vw;
+            aspect-ratio: 1/1;
             margin: 1vw;
             cursor: pointer;
             border: solid 1px black;
@@ -63,4 +63,7 @@ button.ready {
         width: 96vw;
         padding: 1vw;
     }
+button {
+width: 24vw;
+}
 }
