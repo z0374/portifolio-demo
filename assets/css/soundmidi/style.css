@@ -37,10 +37,10 @@
             border-radius: 12px;
             font-size: 3vw;
 color: #38B2AC;
-text-shadow:
-  0 0 5px #38B2AC,
-  0 0 10px #38B2AC,
-  0 0 20px #00FFFF;
+    text-shadow:
+        0 0 2px #000,
+        0 0 4px #000,
+        0 0 6px #000;
         }
 
         button:hover,
