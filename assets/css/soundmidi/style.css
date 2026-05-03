@@ -36,7 +36,11 @@
             opacity: 0.51;
             border-radius: 12px;
             font-size: 3vw;
-color:#3FAFA0;
+color: #38B2AC;
+text-shadow:
+  0 0 5px #38B2AC,
+  0 0 10px #38B2AC,
+  0 0 20px #00FFFF;
         }
 
         button:hover,
