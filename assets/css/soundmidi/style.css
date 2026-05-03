@@ -9,10 +9,10 @@
 overflow: hidden;
         }
 html{
-background-color: #2E3D43; }
+background-color: #2E3D43; 
+}
       body {
             width: 100vw;
-            height: 90%;
             border: none;
             display: flex;
         }
