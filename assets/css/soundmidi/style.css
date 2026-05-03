@@ -38,7 +38,11 @@ gap: 1vw;
             border-radius: 12px;
             font-size: 3vw;
 color: #38B2AC;
-    text-shadow:0 0 0.9px #000;
+    text-shadow: 
+    -1px -1px 0 #000,  
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000;
         }
 
         button:hover,
@@ -67,6 +71,6 @@ button.ready {
 button {
 width: 27vw;
 font-size: 6vw;
-    text-shadow:0 0 3vw #000;
+    
 }
 }
