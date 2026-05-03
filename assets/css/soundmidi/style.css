@@ -58,7 +58,7 @@ button.ready {
     transition: 0.2s;
 }
 
-@media screen and (max-width: 920px) and (orientation: portrait) {
+@media (max-width: 920px) and (orientation: portrait) {
     #app {
         width: 99vw;
         padding: 1vw;
