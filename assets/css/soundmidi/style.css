@@ -61,9 +61,9 @@ button.ready {
 @media (max-width: 920px) and (orientation: portrait) {
     #app {
         width: 96vw;
-        padding: 0.6vw;
+        padding: 0.9vw 1.9vw;
     }
 button {
-width: 30vw;
+width: 27vw;
 }
 }
