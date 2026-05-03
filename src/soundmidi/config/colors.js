@@ -1,11 +1,11 @@
 export default [
-    '#0D1B2A', // azul profundo (base)
-    '#1A1A40', // roxo escuro
-    '#2B0A3D', // roxo neon escuro
-    '#003B44', // ciano escuro
-    '#1F0036', // violeta profundo
-    '#002F2F', // teal escuro
-    '#3A0CA3', // roxo forte
-    '#14213D', // azul petróleo
-    '#240046'  // roxo intenso
+    '#001F3F', // azul neon profundo
+    '#0A0A2A', // azul escuro vibrante
+    '#2D033B', // roxo neon profundo
+    '#003C3C', // ciano escuro vibrante
+    '#3A0CA3', // roxo forte (neon real)
+    '#001F2F', // azul petróleo neon
+    '#2B2D42', // azul escuro moderno
+    '#3F0071', // violeta neon
+    '#002B36'  // teal escuro vivo
 ];
