@@ -24,12 +24,12 @@
             flex-wrap: wrap;
             background-color: #435761;
             border-radius: 3vw;
+gap: 1vw;
         }
 
         button {
             width: 12vw;
             aspect-ratio: 1/1;
-            margin: 1vw;
             cursor: pointer;
             border: solid 1px black;
             font-weight: bold;
@@ -64,6 +64,6 @@ button.ready {
         padding: 0.6vw;
     }
 button {
-width: 27vw;
+width: 30vw;
 }
 }
