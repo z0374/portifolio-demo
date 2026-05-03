@@ -37,10 +37,7 @@
             border-radius: 12px;
             font-size: 3vw;
 color: #38B2AC;
-    text-shadow:
-        0 0 2px #000,
-        0 0 4px #000,
-        0 0 6px #000;
+    text-shadow:0 0 0.9px #000;
         }
 
         button:hover,
@@ -61,11 +58,11 @@ button.ready {
     transition: 0.2s;
 }
 
-@media screen and (max-width=767){
-@media screen and (orientation=portrait){
-#app{
-width:99vw;
-padding:1vw;
+@media screen and (max-width: 767px) {
+@media screen and (orientation: portrait) {
+    #app {
+        width: 99vw;
+        padding: 1vw;
+    }
 }
-}}
 }
