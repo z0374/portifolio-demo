@@ -56,3 +56,12 @@ button.ready {
     cursor: pointer;
     transition: 0.2s;
 }
+
+@media screen and (max-width=767){
+@media screen and (orientation=portrait){
+#app{
+width:99vw;
+padding:1vw;
+}
+}}
+}
