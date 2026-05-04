@@ -1,66 +1,65 @@
 * {
-            box-sizing: border-box;
-            margin: 0;
-            outline: none;
-            padding: 0;
-            align-items: center;
-            justify-content: center ;
-            filter: drop-shadow(0px 0px 15px rgba(60,60,60,0.6));
-overflow: hidden;
-        }
-html{
-background-color: #2E3D43; 
+    box-sizing: border-box;
+    margin: 0;
+    outline: none;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0px 0px 15px rgba(60, 60, 60, 0.6));
+    overflow: hidden;
 }
-      body {
-            width: 100vw;
-            border: none;
-            display: flex;
-        }
 
-        #app {
-            width: 51vw;
-aspect-ratio:1/1;
-            padding: 2.1vw;
-            border: solid 1px black;
-            font-weight: bold;
-            display: flex;
-            flex-wrap: wrap;
-            background-color: #435761;
-            border-radius: 3vw;
-gap: 1vw;
-        }
+html {
+    background-color: #2E3D43;
+}
 
-        button {
-            width: 12vw;
-            aspect-ratio: 1/1;
-            cursor: pointer;
-            border: solid 1px black;
-            font-weight: bold;
-            opacity: 0.51;
-            border-radius: 12px;
-            font-size: 3vw;
-color: #38B2AC;
-    text-shadow: 
-    -1px -1px 0 #000,  
-     1px -1px 0 #000,
-    -1px  1px 0 #000,
-     1px  1px 0 #000;
-        }
+body {
+    width: 100vw;
+    height: 100cqh;
+    border: none;
+    display: flex;
+}
 
-        button:hover,
-        button:focus {
-            opacity: 1;
-            border: none;
-        }
+#app {
+    width: 51vw;
+    aspect-ratio: 1/1;
+    padding: 2.1vw;
+    border: solid 1px black;
+    font-weight: bold;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #435761;
+    border-radius: 3vw;
+    gap: 1vw;
+}
+
+button {
+    width: 12vw;
+    aspect-ratio: 1/1;
+    cursor: pointer;
+    border: solid 1px black;
+    font-weight: bold;
+    border-radius: 12px;
+    font-size: 3vw;
+    color: #38B2AC;
+    text-shadow:
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+}
+
+button:hover,
+button:focus {
+    border: none;
+}
 
 button.loading {
     background: #ccc !important;
     cursor: not-allowed;
-    opacity: 0.7;
 }
 
 button.ready {
-    opacity: 1;
     cursor: pointer;
     transition: 0.2s;
 }
@@ -71,9 +70,44 @@ button.ready {
         width: 96vw;
         padding: 1.9vw;
     }
-button {
-width: 27vw;
-font-size: 6vw;
-    
+
+    button {
+        width: 27vw;
+        font-size: 6vw;
+
+    }
 }
+
+/* Modifique sua animação para ser mais agressiva no brilho */
+@keyframes pulse-click {
+    0% {
+        transform: scale(1);
+        filter: brightness(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(0.92);
+        filter: brightness(2);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: scale(1);
+        filter: brightness(1);
+        opacity: 1;
+    }
+}
+
+/* Garante que a animação tenha prioridade */
+.is-pulsing {
+    animation: pulse-click 0.15s ease-in-out !important;
+    opacity: 1 !important;
+    /* Força o botão a ficar visível enquanto pisca */
+}
+
+/* Melhore o estado active para você saber que ele foi clicado */
+button.active {
+    opacity: 1;
+    border: 2px solid #38B2AC;
 }
