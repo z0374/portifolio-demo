@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<title>Random Combine</title>
 <!--script src="https://kit.fontawesome.com/b42a2f6a22.js" crossorigin="anonymous" defer></script-->
 <style>
 *{margin:0; padding:0;font-weight:bold; border:none;box-sizing:border-box; flex-direction:column; align-items:center; justify-content:center; font-family:arial, sans serif; outline:none;
@@ -32,19 +33,19 @@ width:96vw;
 </style>
 </head>
 <body align="center">
-    <a class="return" href="/portifolio" style="position:absolute;top:0.3vw;left:0.6vw;font-size:1.5rem;"><i class="fa-solid fa-arrow-left"></i></a>
-<div class="td">
+    <a aria-label="voltar ao portifólio" class="return" href="/portifolio" style="position:absolute;top:0.3vw;left:0.6vw;font-size:1.5rem;"><i class="fa-solid fa-arrow-left"></i></a>
+<main class="td">
 	<h1 >Random Combine</h1>
 	<br><h2 id="lsrt"></h2>
 <div id="jg">
-		<br><label class="elm" id="rtn">Escolha um valor</label><br>
-		<input type="text" autofocus><br>
+		<br><label for="inputValue" class="elm" id="rtn">Escolha um valor</label><br>
+		<input id="inputValue" type="text" autofocus><br>
 		
 		<button class="elm" onclick="adc()">Adicionar</button>&nbsp;<button  class="elm" onclick="dfn()">Sortear</button><br>
 		<label class="elm" id="iamg"></label>
 	<p id="lamg"></p>
 </div><button  class="elm" id="rs" onclick="rs()" hidden>Reiniciar</button>
-</div>
+</main>
 
 <script>
 	let cmp = document.querySelector('input');
