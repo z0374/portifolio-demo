@@ -12,7 +12,7 @@ import bindClicks from "@ui/bindClicks.js";
 import bindKeyboard from "@ui/bindKeyboard.js";
 
 async function soundmidi() {
-  const uri_assets = "http://assets.victormacedo.dev.br";
+  const uri_assets = "https://assets.victormacedo.dev.br";
   const wavT = "wav/tracks";
 
   const app = document.getElementById("app");
