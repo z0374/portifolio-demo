@@ -10,7 +10,7 @@
 }
 
 html {
-    background-color: #2E3D43;
+    background-color: #2e3d43;
 }
 
 body {
@@ -21,7 +21,7 @@ body {
 }
 
 #app {
-    width: 51vw;
+    width: 39vw;
     aspect-ratio: 1/1;
     padding: 2.1vw;
     border: solid 1px black;
@@ -41,7 +41,7 @@ button {
     font-weight: bold;
     border-radius: 12px;
     font-size: 3vw;
-    color: #38B2AC;
+    color: #38b2ac;
     text-shadow:
         -1px -1px 0 #000,
         1px -1px 0 #000,
@@ -64,8 +64,7 @@ button.ready {
     transition: 0.2s;
 }
 
-@media (max-width: 920px) and (orientation: portrait) {
-
+@media (max-width: 1080px) and (orientation: portrait) {
     #app {
         width: 96vw;
         padding: 1.9vw;
@@ -74,7 +73,6 @@ button.ready {
     button {
         width: 27vw;
         font-size: 6vw;
-
     }
 }
 
@@ -109,5 +107,5 @@ button.ready {
 /* Melhore o estado active para você saber que ele foi clicado */
 button.active {
     opacity: 1;
-    border: 2px solid #38B2AC;
+    border: 2px solid #38b2ac;
 }
