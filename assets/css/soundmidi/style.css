@@ -34,7 +34,7 @@ body {
 }
 
 button {
-    width: 12vw;
+    width: 30%;
     aspect-ratio: 1/1;
     cursor: pointer;
     border: solid 1px black;
