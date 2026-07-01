@@ -6,7 +6,7 @@
     <title>Portal da Família</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ================= PALETA DE 3 CORES (Regra 60-30-10) ================= */
+        /* ================= PALETA DE 3 CORES ================= */
         :root {
             --bg-base: #f8fafc;
             --glass-bg: rgba(255, 255, 255, 0.65);
@@ -27,6 +27,9 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+        /* Rolagem suave nativa */
+        html { scroll-behavior: smooth; }
 
         body {
             background: linear-gradient(135deg, #f0fdfa 0%, #fff1f2 100%);
@@ -57,12 +60,12 @@
             padding: 20px;
         }
 
-        /* Compensação de scroll para o menu fixo não cobrir o título */
-        section, .widget {
+        /* Offset para que o cabeçalho não cubra o título ao rolar a página */
+        .scroll-target {
             scroll-margin-top: 110px; 
         }
 
-        /* ================= CABEÇALHO (FIXO / STICKY) ================= */
+        /* ================= CABEÇALHO (Sticky Index) ================= */
         header {
             position: sticky;
             top: 20px;
@@ -72,7 +75,11 @@
             justify-content: space-between;
             gap: 20px;
             padding: 10px 20px;
-            height: 70px;
+            height: 75px;
+            /* Aumenta o desfoque para garantir leitura clara por cima do conteúdo */
+            backdrop-filter: blur(25px); 
+            -webkit-backdrop-filter: blur(25px);
+            background: rgba(255, 255, 255, 0.85);
         }
 
         .header-left { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.2rem; min-width: 200px; }
@@ -96,13 +103,15 @@
         }
 
         .header-right { display: flex; align-items: center; gap: 20px; }
-        .nav-icons { display: flex; gap: 20px; }
+        .nav-icons { display: flex; gap: 15px; }
+        
         .nav-item {
             display: flex; flex-direction: column; align-items: center; gap: 4px;
-            color: var(--text-muted); font-size: 0.75rem; font-weight: 500; cursor: pointer; transition: color 0.2s;
+            color: var(--text-muted); font-size: 0.75rem; font-weight: 600; 
+            text-decoration: none; cursor: pointer; transition: all 0.2s;
         }
-        .nav-item:hover, .nav-item.active { color: var(--primary); }
-        .nav-item svg { width: 24px; height: 24px; stroke-width: 1.5; }
+        .nav-item:hover, .nav-item.active { color: var(--primary); transform: translateY(-2px); }
+        .nav-item svg { width: 22px; height: 22px; stroke-width: 1.8; }
         
         .avatar {
             width: 38px; height: 38px; border-radius: 50%; 
@@ -110,7 +119,7 @@
             display: flex; justify-content: center; align-items: center; color: white; font-weight: bold;
         }
 
-        /* ================= NOSSA RAIZ ================= */
+        /* ================= 1ª LINHA: NOSSA RAIZ ================= */
         .tree-section { padding: 30px 20px; overflow-x: auto; }
         .section-title { font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
         .section-title svg { width: 20px; height: 20px; }
@@ -146,7 +155,7 @@
         .node-down::after { content: ''; position: absolute; bottom: -30px; left: 50%; width: 2px; height: 30px; background: var(--primary-light); }
         .node-up::before { content: ''; position: absolute; top: -30px; left: 50%; width: 2px; height: 30px; background: var(--primary-light); }
 
-        /* ================= GRADE BENTO ================= */
+        /* ================= 2ª LINHA: GRADE BENTO ================= */
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -180,7 +189,7 @@
         .item-title { font-weight: 600; font-size: 0.95rem; }
         .item-sub { font-size: 0.8rem; color: var(--text-muted); }
 
-        /* ================= ÁLBUM DE FOTOS ================= */
+        /* ================= 3ª LINHA: ÁLBUM DE FOTOS ================= */
         .album-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -188,56 +197,34 @@
         }
 
         .photo-card {
-            border-radius: 12px;
-            overflow: hidden;
-            cursor: pointer;
-            position: relative;
-            border: 2px solid transparent;
-            transition: all 0.3s;
-            aspect-ratio: 4/3;
+            border-radius: 12px; overflow: hidden; cursor: pointer; position: relative;
+            border: 2px solid transparent; transition: all 0.3s; aspect-ratio: 4/3;
         }
 
-        .photo-card:hover {
-            border-color: var(--primary);
-            transform: scale(1.02);
-            box-shadow: 0 10px 20px rgba(13, 148, 136, 0.15);
-        }
-
-        .photo-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+        .photo-card:hover { border-color: var(--primary); transform: scale(1.02); box-shadow: 0 10px 20px rgba(13, 148, 136, 0.15); }
+        .photo-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
         .photo-overlay {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
+            position: absolute; bottom: 0; left: 0; right: 0;
             background: linear-gradient(transparent, rgba(30, 41, 59, 0.8));
-            padding: 15px 10px 10px;
-            color: white;
-            font-size: 0.85rem;
-            font-weight: 500;
-            opacity: 0;
-            transition: opacity 0.3s;
+            padding: 15px 10px 10px; color: white; font-size: 0.85rem; font-weight: 500;
+            opacity: 0; transition: opacity 0.3s;
         }
 
         .photo-card:hover .photo-overlay { opacity: 1; }
 
         /* Lightbox */
         .lightbox {
-            display: none; position: fixed; z-index: 1100; top: 0; left: 0; width: 100%; height: 100%;
+            display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(30, 41, 59, 0.85); backdrop-filter: blur(10px);
             align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s;
         }
         .lightbox.active { display: flex; opacity: 1; }
         .lightbox img { max-width: 90%; max-height: 85vh; border-radius: 12px; box-shadow: 0 15px 40px rgba(0,0,0,0.3); border: 2px solid var(--glass-border); }
-        .lightbox-close {
-            position: absolute; top: 20px; right: 30px; font-size: 40px; color: white; cursor: pointer; transition: color 0.2s;
-        }
+        .lightbox-close { position: absolute; top: 20px; right: 30px; font-size: 40px; color: white; cursor: pointer; transition: color 0.2s; }
         .lightbox-close:hover { color: var(--accent); }
 
-        /* ================= LIVRO DE VISITAS ================= */
+        /* ================= 4ª LINHA: LIVRO DE VISITAS ================= */
         .guestbook-layout { display: flex; flex-wrap: wrap; gap: 30px; }
         .gb-form { flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 15px; }
         .gb-inputs { display: flex; gap: 15px; }
@@ -257,22 +244,37 @@
         .msg-author { font-weight: 700; margin-bottom: 2px; color: var(--text-main); }
         .msg-text { font-size: 0.95rem; color: var(--text-muted); }
 
-        /* Media Queries (Mobile) */
+        /* ================= RESPONSIVIDADE (Preservada e Melhorada) ================= */
+        @media (max-width: 900px) {
+            .header-center { display: none; /* Esconde a busca em telas menores para priorizar o índice */ }
+        }
+
         @media (max-width: 768px) {
-            header { top: 0; border-radius: 0; padding: 15px; }
-            .header-right { width: 100%; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
+            header { 
+                top: 10px; height: auto; flex-wrap: wrap; 
+                justify-content: center; padding: 10px; 
+            }
+            .header-left { width: 100%; justify-content: center; margin-bottom: 10px; }
+            .header-right { width: 100%; justify-content: center; }
+            
+            /* Remove os textos do menu no mobile, deixa apenas ícones para economizar espaço do Sticky Header */
+            .nav-item span { display: none; }
+            .nav-item svg { width: 26px; height: 26px; }
+            
             .gb-inputs { flex-direction: column; }
             .album-grid { grid-template-columns: repeat(2, 1fr); }
         }
+        
         @media (max-width: 480px) {
             .album-grid { grid-template-columns: 1fr; }
+            .org-chart { min-width: 100%; overflow-x: auto; } /* Permite rolar a árvore genealógica no mobile */
         }
     </style>
 </head>
 <body>
     <div class="container">
         
-        <header class="glass-panel" style="padding: 10px 20px;">
+        <header class="glass-panel">
             <div class="header-left">
                 <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 9.75l9-6.75 9 6.75V21H3V9.75z"></path><path d="M12 18.75V21"></path></svg>
                 <span>Portal da Família</span>
@@ -284,33 +286,22 @@
             </div>
 
             <div class="header-right">
-                <div class="nav-icons" id="main-nav">
-                    <div class="nav-item active" onclick="scrollToSection('sec-raiz', this)">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 11l-3-3m0 0l3-3m-3 3h7m-7 13l-3-3m0 0l3-3m-3 3h13"></path></svg> Raiz
-                    </div>
-                    <div class="nav-item" onclick="scrollToSection('sec-tempo', this)">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg> Tempo
-                    </div>
-                    <div class="nav-item" onclick="scrollToSection('sec-receitas', this)">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3a9 9 0 019 9a9 9 0 01-9 9a9 9 0 01-9-9a9 9 0 019-9"></path><path d="M12 14v4M12 6V3"></path></svg> Receitas
-                    </div>
-                    <div class="nav-item" onclick="scrollToSection('sec-fotos', this)">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg> Fotos
-                    </div>
-                    <div class="nav-item" onclick="scrollToSection('sec-visitas', this)">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.24 12.24a6 6 0 1 0-8.49 8.49L3 21l3.51-3.51A9 9 0 1 1 21 12v3"></path><path d="M15 21l3-3"></path></svg> Visitas
-                    </div>
-                </div>
+                <nav class="nav-icons">
+                    <a href="#nossa-raiz" class="nav-item active-nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 11l-3-3m0 0l3-3m-3 3h7m-7 13l-3-3m0 0l3-3m-3 3h13"></path></svg> <span>Raiz</span></a>
+                    <a href="#linha-do-tempo" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg> <span>Tempo</span></a>
+                    <a href="#talentos-receitas" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> <span>Destaques</span></a>
+                    <a href="#fotos" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg> <span>Fotos</span></a>
+                    <a href="#recados" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.24 12.24a6 6 0 1 0-8.49 8.49L3 21l3.51-3.51A9 9 0 1 1 21 12v3"></path><path d="M15 21l3-3"></path></svg> <span>Recados</span></a>
+                </nav>
                 <div class="avatar">V</div>
             </div>
         </header>
 
-        <section id="sec-raiz" class="glass-panel tree-section">
+        <section id="nossa-raiz" class="glass-panel tree-section scroll-target observer-section">
             <div class="section-title">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 11l-3-3m0 0l3-3m-3 3h7m-7 13l-3-3m0 0l3-3m-3 3h13"></path></svg>
                 NOSSA RAIZ
             </div>
-            
             <div class="org-chart">
                 <div class="org-level connected">
                     <div class="org-node node-down">Avós Maternos</div>
@@ -328,7 +319,7 @@
 
         <section class="bento-grid">
             
-            <div id="sec-tempo" class="glass-panel widget">
+            <div id="linha-do-tempo" class="glass-panel scroll-target observer-section">
                 <div class="section-title">⏳ LINHA DO TEMPO</div>
                 <div class="widget-content">
                     <div class="timeline-item active">Abril de 2026: 1 Aninho da Ayla Liz</div>
@@ -337,7 +328,7 @@
                 </div>
             </div>
 
-            <div class="glass-panel widget">
+            <div id="talentos-receitas" class="glass-panel scroll-target observer-section">
                 <div class="section-title">✦ VITRINE DE TALENTOS</div>
                 <div class="widget-content">
                     <div class="list-item">
@@ -357,7 +348,7 @@
                 </div>
             </div>
 
-            <div id="sec-receitas" class="glass-panel widget">
+            <div class="glass-panel">
                 <div class="section-title">⌬ CADERNO DE RECEITAS</div>
                 <div class="widget-content">
                     <div class="list-item">
@@ -373,7 +364,7 @@
 
         </section>
 
-        <section id="sec-fotos" class="glass-panel">
+        <section id="fotos" class="glass-panel scroll-target observer-section">
             <div class="section-title">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
                 ÁLBUM DE FOTOS
@@ -398,7 +389,7 @@
             </div>
         </section>
 
-        <section id="sec-visitas" class="glass-panel">
+        <section id="recados" class="glass-panel scroll-target observer-section">
             <div class="section-title">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.24 12.24a6 6 0 1 0-8.49 8.49L3 21l3.51-3.51A9 9 0 1 1 21 12v3"></path><path d="M15 21l3-3"></path></svg>
                 LIVRO DE VISITAS
@@ -436,7 +427,7 @@
     </div>
 
     <script>
-        // Lógica do Modal (Lightbox)
+        // Lógica do Lightbox
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
 
@@ -457,25 +448,35 @@
             }
         }
 
-        // Lógica de Scroll Suave e Ícone Ativo no Menu
-        function scrollToSection(sectionId, clickedElement) {
-            const targetSection = document.getElementById(sectionId);
-            
-            if (targetSection) {
-                // Remove a classe ativa de todos os botões do menu
-                const navItems = document.querySelectorAll('.nav-item');
-                navItems.forEach(item => item.classList.remove('active'));
-                
-                // Adiciona a classe ativa apenas no botão clicado
-                clickedElement.classList.add('active');
+        // Script para atualizar a cor do menu conforme a rolagem da página
+        document.addEventListener("DOMContentLoaded", function() {
+            const sections = document.querySelectorAll('.observer-section');
+            const navLinks = document.querySelectorAll('.nav-item');
 
-                // Rola a página até a seção correspondente
-                targetSection.scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start'
+            const observerOptions = {
+                root: null,
+                rootMargin: '-100px 0px -60% 0px', // Aciona quando a seção chega perto do topo
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Remove a classe active de todos
+                        navLinks.forEach(link => link.classList.remove('active'));
+                        
+                        // Adiciona no link correspondente
+                        const id = entry.target.getAttribute('id');
+                        const activeLink = document.querySelector(`a[href="#${id}"]`);
+                        if(activeLink) activeLink.classList.add('active');
+                    }
                 });
-            }
-        }
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
     </script>
 </body>
 </html>
