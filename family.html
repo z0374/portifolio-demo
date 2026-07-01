@@ -1,0 +1,878 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Portal da Família</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            /* ================= PALETA DE 3 CORES (Regra 60-30-10) ================= */
+            :root {
+                /* Base Neutra (Fundo e Vidro) */
+                --bg-base: #f8fafc;
+                --glass-bg: rgba(255, 255, 255, 0.65);
+                --glass-border: rgba(255, 255, 255, 0.9);
+                --text-main: #1e293b;
+                --text-muted: #64748b;
+
+                /* Cor Primária (Turquesa / Mint) */
+                --primary: #0d9488;
+                --primary-light: #ccfbf1;
+                --primary-hover: #0f766e;
+
+                /* Cor de Destaque (Coral) */
+                --accent: #f43f5e;
+                --accent-light: #ffe4e6;
+                --accent-hover: #e11d48;
+
+                /* Sombras e Estrutura */
+                --box-shadow: 0 8px 32px 0 rgba(13, 148, 136, 0.06);
+                --radius: 16px;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: "Inter", sans-serif;
+            }
+
+            body {
+                background: linear-gradient(135deg, #f0fdfa 0%, #fff1f2 100%);
+                color: var(--text-main);
+                min-height: 100vh;
+                padding: 20px;
+                display: flex;
+                justify-content: center;
+            }
+
+            .container {
+                width: 100%;
+                max-width: 1300px;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                margin-bottom: 40px;
+            }
+
+            /* Glassmorphism Base */
+            .glass-panel {
+                background: var(--glass-bg);
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+                border: 1px solid var(--glass-border);
+                border-radius: var(--radius);
+                box-shadow: var(--box-shadow);
+                padding: 20px;
+            }
+
+            /* ================= CABEÇALHO ================= */
+            header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 20px;
+                padding: 10px 20px;
+                height: 70px;
+            }
+
+            .header-left {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-weight: 700;
+                font-size: 1.2rem;
+                min-width: 200px;
+            }
+            .header-left svg {
+                width: 28px;
+                height: 28px;
+                stroke: var(--primary);
+            }
+
+            .header-center {
+                flex-grow: 1;
+                max-width: 600px;
+                position: relative;
+            }
+            .header-center input {
+                width: 100%;
+                padding: 10px 20px 10px 45px;
+                border-radius: 50px;
+                border: 1px solid rgba(13, 148, 136, 0.15);
+                background: rgba(255, 255, 255, 0.8);
+                font-size: 0.95rem;
+                outline: none;
+                transition: all 0.3s;
+            }
+            .header-center input:focus {
+                border-color: var(--primary);
+                background: #fff;
+                box-shadow: 0 0 0 3px var(--primary-light);
+            }
+            .header-center svg {
+                position: absolute;
+                left: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 18px;
+                height: 18px;
+                stroke: var(--text-muted);
+            }
+
+            .header-right {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+            }
+            .nav-icons {
+                display: flex;
+                gap: 20px;
+            }
+            .nav-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+                color: var(--text-muted);
+                font-size: 0.75rem;
+                font-weight: 500;
+                cursor: pointer;
+                transition: color 0.2s;
+            }
+            .nav-item:hover,
+            .nav-item.active {
+                color: var(--primary);
+            }
+            .nav-item svg {
+                width: 24px;
+                height: 24px;
+                stroke-width: 1.5;
+            }
+
+            .avatar {
+                width: 38px;
+                height: 38px;
+                border-radius: 50%;
+                background: var(--primary);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                font-weight: bold;
+            }
+
+            /* ================= 1ª LINHA: NOSSA RAIZ ================= */
+            .tree-section {
+                padding: 30px 20px;
+                overflow-x: auto;
+            }
+            .section-title {
+                font-size: 1.1rem;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 20px;
+            }
+            .section-title svg {
+                width: 20px;
+                height: 20px;
+            }
+
+            .org-chart {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+                min-width: 600px;
+                padding-top: 10px;
+            }
+
+            .org-level {
+                display: flex;
+                justify-content: center;
+                gap: 40px;
+                position: relative;
+            }
+
+            .org-level.connected::before {
+                content: "";
+                position: absolute;
+                top: 20px;
+                left: 25%;
+                right: 25%;
+                height: 2px;
+                background: var(--primary-light);
+                z-index: 0;
+            }
+
+            .org-level.parent-level::after {
+                content: "";
+                position: absolute;
+                top: 20px;
+                left: 50%;
+                width: 2px;
+                height: 30px;
+                background: var(--primary-light);
+                z-index: 0;
+            }
+
+            .org-node {
+                background: #fff;
+                border: 2px solid var(--primary-light);
+                padding: 10px 24px;
+                border-radius: 30px;
+                font-weight: 600;
+                font-size: 0.95rem;
+                z-index: 1;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+                position: relative;
+                color: var(--primary-hover);
+            }
+
+            .node-down::after {
+                content: "";
+                position: absolute;
+                bottom: -30px;
+                left: 50%;
+                width: 2px;
+                height: 30px;
+                background: var(--primary-light);
+            }
+            .node-up::before {
+                content: "";
+                position: absolute;
+                top: -30px;
+                left: 50%;
+                width: 2px;
+                height: 30px;
+                background: var(--primary-light);
+            }
+
+            /* ================= 2ª LINHA: GRADE BENTO ================= */
+            .bento-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 20px;
+            }
+
+            .widget-content {
+                max-height: 250px;
+                overflow-y: auto;
+                padding-right: 5px;
+            }
+            .widget-content::-webkit-scrollbar {
+                width: 5px;
+            }
+            .widget-content::-webkit-scrollbar-thumb {
+                background: rgba(0, 0, 0, 0.1);
+                border-radius: 5px;
+            }
+
+            /* Timeline */
+            .timeline-item {
+                padding: 12px;
+                background: rgba(255, 255, 255, 0.7);
+                border-radius: 12px;
+                margin-bottom: 10px;
+                font-size: 0.9rem;
+                border-left: 3px solid transparent;
+            }
+            .timeline-item.active {
+                background: #fff;
+                border-left-color: var(--accent);
+                box-shadow: 0 2px 10px rgba(13, 148, 136, 0.08);
+                font-weight: 500;
+            }
+
+            /* Listas Internas */
+            .list-item {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 12px;
+                background: rgba(255, 255, 255, 0.7);
+                border-radius: 12px;
+                margin-bottom: 10px;
+                border: 1px solid transparent;
+                transition: all 0.3s;
+            }
+            .list-item:hover {
+                background: #fff;
+                border-color: var(--primary-light);
+                transform: translateY(-2px);
+            }
+
+            .item-icon {
+                width: 36px;
+                height: 36px;
+                border-radius: 8px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                font-weight: bold;
+            }
+            .item-icon.mint {
+                background: var(--primary);
+            }
+            .item-icon.coral {
+                background: var(--accent);
+            }
+
+            .item-title {
+                font-weight: 600;
+                font-size: 0.95rem;
+            }
+            .item-sub {
+                font-size: 0.8rem;
+                color: var(--text-muted);
+            }
+
+            /* ================= 3ª LINHA: ÁLBUM DE FOTOS ================= */
+            .album-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 15px;
+            }
+
+            .photo-card {
+                border-radius: 12px;
+                overflow: hidden;
+                cursor: pointer;
+                position: relative;
+                border: 2px solid transparent;
+                transition: all 0.3s;
+                aspect-ratio: 4/3;
+            }
+
+            .photo-card:hover {
+                border-color: var(--primary);
+                transform: scale(1.02);
+                box-shadow: 0 10px 20px rgba(13, 148, 136, 0.15);
+            }
+
+            .photo-card img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+
+            .photo-overlay {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: linear-gradient(transparent, rgba(30, 41, 59, 0.8));
+                padding: 15px 10px 10px;
+                color: white;
+                font-size: 0.85rem;
+                font-weight: 500;
+                opacity: 0;
+                transition: opacity 0.3s;
+            }
+
+            .photo-card:hover .photo-overlay {
+                opacity: 1;
+            }
+
+            /* Lightbox */
+            .lightbox {
+                display: none;
+                position: fixed;
+                z-index: 999;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(30, 41, 59, 0.85);
+                backdrop-filter: blur(10px);
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                transition: opacity 0.3s;
+            }
+            .lightbox.active {
+                display: flex;
+                opacity: 1;
+            }
+            .lightbox img {
+                max-width: 90%;
+                max-height: 85vh;
+                border-radius: 12px;
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+                border: 2px solid var(--glass-border);
+            }
+            .lightbox-close {
+                position: absolute;
+                top: 20px;
+                right: 30px;
+                font-size: 40px;
+                color: white;
+                cursor: pointer;
+                transition: color 0.2s;
+            }
+            .lightbox-close:hover {
+                color: var(--accent);
+            }
+
+            /* ================= 4ª LINHA: LIVRO DE VISITAS ================= */
+            .guestbook-layout {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 30px;
+            }
+            .gb-form {
+                flex: 1;
+                min-width: 300px;
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+            .gb-inputs {
+                display: flex;
+                gap: 15px;
+            }
+            .gb-inputs input {
+                flex: 1;
+                padding: 12px;
+                border-radius: 12px;
+                border: 1px solid rgba(13, 148, 136, 0.2);
+                background: rgba(255, 255, 255, 0.8);
+                outline: none;
+            }
+            .gb-inputs input:focus {
+                border-color: var(--primary);
+            }
+            .gb-form textarea {
+                padding: 12px;
+                border-radius: 12px;
+                border: 1px solid rgba(13, 148, 136, 0.2);
+                background: rgba(255, 255, 255, 0.8);
+                outline: none;
+                resize: vertical;
+                min-height: 80px;
+            }
+            .gb-form textarea:focus {
+                border-color: var(--primary);
+            }
+
+            .btn-submit {
+                background: var(--accent);
+                color: white;
+                border: none;
+                padding: 12px;
+                border-radius: 12px;
+                font-weight: 600;
+                cursor: pointer;
+                align-self: flex-start;
+                transition: background 0.3s;
+            }
+            .btn-submit:hover {
+                background: var(--accent-hover);
+            }
+
+            .gb-messages {
+                flex: 2;
+                min-width: 300px;
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                max-height: 250px;
+                overflow-y: auto;
+            }
+            .message-card {
+                padding: 12px 15px;
+                background: rgba(255, 255, 255, 0.5);
+                border-radius: 12px;
+                border-left: 3px solid var(--primary);
+            }
+            .msg-author {
+                font-weight: 700;
+                margin-bottom: 2px;
+                color: var(--text-main);
+            }
+            .msg-text {
+                font-size: 0.95rem;
+                color: var(--text-muted);
+            }
+
+            /* Media Queries (Mobile) */
+            @media (max-width: 768px) {
+                header {
+                    height: auto;
+                    flex-direction: column;
+                    padding: 20px;
+                }
+                .header-right {
+                    width: 100%;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                }
+                .gb-inputs {
+                    flex-direction: column;
+                }
+                .album-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+            @media (max-width: 480px) {
+                .album-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header class="glass-panel" style="padding: 10px 20px">
+                <div class="header-left">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                        <path d="M3 9.75l9-6.75 9 6.75V21H3V9.75z"></path>
+                        <path d="M12 18.75V21"></path>
+                    </svg>
+                    <span>Portal da Família</span>
+                </div>
+
+                <div class="header-center">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="M21 21l-4.35-4.35"></path>
+                    </svg>
+                    <input
+                        type="text"
+                        placeholder="Pesquisar momentos ou familiares..."
+                    />
+                </div>
+
+                <div class="header-right">
+                    <div class="nav-icons">
+                        <div class="nav-item active">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    d="M12 11l-3-3m0 0l3-3m-3 3h7m-7 13l-3-3m0 0l3-3m-3 3h13"
+                                ></path>
+                            </svg>
+                            Raiz
+                        </div>
+                        <div class="nav-item">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                            >
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M12 6v6l4 2"></path>
+                            </svg>
+                            Tempo
+                        </div>
+                        <div class="nav-item">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                            >
+                                <rect
+                                    x="3"
+                                    y="3"
+                                    width="18"
+                                    height="18"
+                                    rx="2"
+                                    ry="2"
+                                ></rect>
+                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                <polyline points="21 15 16 10 5 21"></polyline>
+                            </svg>
+                            Fotos
+                        </div>
+                        <div class="nav-item">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    d="M12 3a9 9 0 019 9a9 9 0 01-9 9a9 9 0 01-9-9a9 9 0 019-9"
+                                ></path>
+                                <path d="M12 14v4M12 6V3"></path>
+                            </svg>
+                            Receitas
+                        </div>
+                    </div>
+                    <div class="avatar">V</div>
+                </div>
+            </header>
+
+            <section class="glass-panel tree-section">
+                <div class="section-title">
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            d="M12 11l-3-3m0 0l3-3m-3 3h7m-7 13l-3-3m0 0l3-3m-3 3h13"
+                        ></path>
+                    </svg>
+                    NOSSA RAIZ
+                </div>
+
+                <div class="org-chart">
+                    <div class="org-level connected">
+                        <div class="org-node node-down">Avós Maternos</div>
+                        <div class="org-node node-down">Avós Paternos</div>
+                    </div>
+                    <div class="org-level connected parent-level">
+                        <div class="org-node node-up">Victor</div>
+                        <div class="org-node node-up">Esposa</div>
+                    </div>
+                    <div class="org-level">
+                        <div
+                            class="org-node node-up"
+                            style="
+                                background: var(--accent);
+                                color: white;
+                                border-color: var(--accent);
+                            "
+                        >
+                            Ayla Liz
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bento-grid">
+                <div class="glass-panel">
+                    <div class="section-title">⏳ LINHA DO TEMPO</div>
+                    <div class="widget-content">
+                        <div class="timeline-item active">
+                            Abril de 2026: 1 Aninho da Ayla Liz
+                        </div>
+                        <div class="timeline-item">
+                            Março de 2026: Refatoração do BOT Engine
+                        </div>
+                        <div class="timeline-item">
+                            Fevereiro de 2026: Lançamento v1.0.0 (Stable)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel">
+                    <div class="section-title">✦ VITRINE DE TALENTOS</div>
+                    <div class="widget-content">
+                        <div class="list-item">
+                            <div class="item-icon coral">A</div>
+                            <div>
+                                <div class="item-title">
+                                    Amigurumi em Miçangas
+                                </div>
+                                <div class="item-sub">
+                                    Arte em Miçangas (Trama Quadrada)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-item">
+                            <div class="item-icon mint">&lt;/&gt;</div>
+                            <div>
+                                <div class="item-title">
+                                    Desenvolvimento Web
+                                </div>
+                                <div class="item-sub">
+                                    Victor (Arquitetura Serverless)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel">
+                    <div class="section-title">⌬ CADERNO DE RECEITAS</div>
+                    <div class="widget-content">
+                        <div class="list-item">
+                            <div
+                                class="item-icon mint"
+                                style="border-radius: 50%"
+                            >
+                                🥩
+                            </div>
+                            <div class="item-title">Churrasco Goiano</div>
+                        </div>
+                        <div class="list-item">
+                            <div
+                                class="item-icon coral"
+                                style="border-radius: 50%"
+                            >
+                                🥕
+                            </div>
+                            <div class="item-title">Bolo de Cenoura</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="glass-panel">
+                <div class="section-title">
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <rect
+                            x="3"
+                            y="3"
+                            width="18"
+                            height="18"
+                            rx="2"
+                            ry="2"
+                        ></rect>
+                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                        <polyline points="21 15 16 10 5 21"></polyline>
+                    </svg>
+                    ÁLBUM DE FOTOS
+                </div>
+                <div class="album-grid">
+                    <div
+                        class="photo-card"
+                        onclick="
+                            openLightbox(
+                                'https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=1200&q=80',
+                            )
+                        "
+                    >
+                        <img
+                            src="https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=400&q=80"
+                            alt="Ayla Liz 1 Aninho"
+                        />
+                        <div class="photo-overlay">Ayla Liz - 1 Aninho</div>
+                    </div>
+                    <div
+                        class="photo-card"
+                        onclick="
+                            openLightbox(
+                                'https://images.unsplash.com/photo-1530103862676-de8892bc952f?auto=format&fit=crop&w=1200&q=80',
+                            )
+                        "
+                    >
+                        <img
+                            src="https://images.unsplash.com/photo-1530103862676-de8892bc952f?auto=format&fit=crop&w=400&q=80"
+                            alt="Mesa do Bolo"
+                        />
+                        <div class="photo-overlay">Mesa Decorada</div>
+                    </div>
+                    <div
+                        class="photo-card"
+                        onclick="
+                            openLightbox(
+                                'https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80',
+                            )
+                        "
+                    >
+                        <img
+                            src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=400&q=80"
+                            alt="Férias"
+                        />
+                        <div class="photo-overlay">Férias na Praia</div>
+                    </div>
+                    <div
+                        class="photo-card"
+                        onclick="
+                            openLightbox(
+                                'https://images.unsplash.com/photo-1476611317561-60117649dd94?auto=format&fit=crop&w=1200&q=80',
+                            )
+                        "
+                    >
+                        <img
+                            src="https://images.unsplash.com/photo-1476611317561-60117649dd94?auto=format&fit=crop&w=400&q=80"
+                            alt="Passeio"
+                        />
+                        <div class="photo-overlay">Passeio no Parque</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="glass-panel">
+                <div class="section-title">
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            d="M20.24 12.24a6 6 0 1 0-8.49 8.49L3 21l3.51-3.51A9 9 0 1 1 21 12v3"
+                        ></path>
+                        <path d="M15 21l3-3"></path>
+                    </svg>
+                    LIVRO DE VISITAS
+                </div>
+                <div class="guestbook-layout">
+                    <div class="gb-form">
+                        <div class="gb-inputs">
+                            <input type="text" placeholder="Nome" />
+                            <input type="email" placeholder="Email" />
+                        </div>
+                        <textarea
+                            placeholder="Deixe um recado... (Em breve integração via Cloudflare Workers / Banco D1)"
+                        ></textarea>
+                        <button class="btn-submit">Enviar Registro</button>
+                    </div>
+
+                    <div class="gb-messages">
+                        <div class="message-card">
+                            <div class="msg-author">Tia Coruja</div>
+                            <div class="msg-text">
+                                O portal está lindo! Parabéns pelo trabalho e
+                                feliz aniversário para a Ayla!
+                            </div>
+                        </div>
+                        <div class="message-card">
+                            <div class="msg-author">Primo</div>
+                            <div class="msg-text">
+                                Já deixei meu confirmando para o churrasco, não
+                                esquece de comprar a carne!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+            <span class="lightbox-close">&times;</span>
+            <img id="lightbox-img" src="" alt="Ampliada" />
+        </div>
+
+        <script>
+            const lightbox = document.getElementById("lightbox");
+            const lightboxImg = document.getElementById("lightbox-img");
+
+            function openLightbox(src) {
+                lightboxImg.src = src;
+                lightbox.style.display = "flex";
+                setTimeout(() => lightbox.classList.add("active"), 10);
+                document.body.style.overflow = "hidden";
+            }
+
+            function closeLightbox(e) {
+                if (e.target !== lightboxImg) {
+                    lightbox.classList.remove("active");
+                    setTimeout(() => {
+                        lightbox.style.display = "none";
+                        document.body.style.overflow = "auto";
+                    }, 300);
+                }
+            }
+        </script>
+    </body>
+</html>
