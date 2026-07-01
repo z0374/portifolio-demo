@@ -27,8 +27,6 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-
-        /* Rolagem suave nativa */
         html { scroll-behavior: smooth; }
 
         body {
@@ -49,7 +47,6 @@
             margin-bottom: 40px;
         }
 
-        /* Glassmorphism Base */
         .glass-panel {
             background: var(--glass-bg);
             backdrop-filter: blur(16px);
@@ -60,25 +57,14 @@
             padding: 20px;
         }
 
-        /* Offset para que o cabeçalho não cubra o título ao rolar a página */
-        .scroll-target {
-            scroll-margin-top: 110px; 
-        }
+        .scroll-target { scroll-margin-top: 110px; }
 
         /* ================= CABEÇALHO (Sticky Index) ================= */
         header {
-            position: sticky;
-            top: 20px;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            padding: 10px 20px;
-            height: 75px;
-            /* Aumenta o desfoque para garantir leitura clara por cima do conteúdo */
-            backdrop-filter: blur(25px); 
-            -webkit-backdrop-filter: blur(25px);
+            position: sticky; top: 20px; z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between; gap: 20px;
+            padding: 10px 20px; height: 75px;
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
             background: rgba(255, 255, 255, 0.85);
         }
 
@@ -87,20 +73,12 @@
 
         .header-center { flex-grow: 1; max-width: 600px; position: relative; }
         .header-center input {
-            width: 100%;
-            padding: 10px 20px 10px 45px;
-            border-radius: 50px;
-            border: 1px solid rgba(13, 148, 136, 0.15);
-            background: rgba(255,255,255,0.8);
-            font-size: 0.95rem;
-            outline: none;
-            transition: all 0.3s;
+            width: 100%; padding: 10px 20px 10px 45px; border-radius: 50px;
+            border: 1px solid rgba(13, 148, 136, 0.15); background: rgba(255,255,255,0.8);
+            font-size: 0.95rem; outline: none; transition: all 0.3s;
         }
         .header-center input:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 3px var(--primary-light); }
-        .header-center svg {
-            position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
-            width: 18px; height: 18px; stroke: var(--text-muted);
-        }
+        .header-center svg { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; stroke: var(--text-muted); }
 
         .header-right { display: flex; align-items: center; gap: 20px; }
         .nav-icons { display: flex; gap: 15px; }
@@ -114,104 +92,83 @@
         .nav-item svg { width: 22px; height: 22px; stroke-width: 1.8; }
         
         .avatar {
-            width: 38px; height: 38px; border-radius: 50%; 
-            background: var(--primary);
+            width: 38px; height: 38px; border-radius: 50%; background: var(--primary);
             display: flex; justify-content: center; align-items: center; color: white; font-weight: bold;
         }
 
-        /* ================= 1ª LINHA: NOSSA RAIZ ================= */
+        /* ================= NOSSA RAIZ ================= */
         .tree-section { padding: 30px 20px; overflow-x: auto; }
         .section-title { font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
         .section-title svg { width: 20px; height: 20px; }
 
-        .org-chart {
-            display: flex; flex-direction: column; align-items: center; gap: 30px;
-            min-width: 600px; 
-            padding-top: 10px;
-        }
-
+        .org-chart { display: flex; flex-direction: column; align-items: center; gap: 30px; min-width: 600px; padding-top: 10px; }
         .org-level { display: flex; justify-content: center; gap: 40px; position: relative; }
-        
-        .org-level.connected::before {
-            content: ''; position: absolute; top: 20px; left: 25%; right: 25%; height: 2px;
-            background: var(--primary-light); z-index: 0;
-        }
-
-        .org-level.parent-level::after {
-            content: ''; position: absolute; top: 20px; left: 50%; width: 2px; height: 30px;
-            background: var(--primary-light); z-index: 0;
-        }
-
-        .org-node {
-            background: #fff;
-            border: 2px solid var(--primary-light);
-            padding: 10px 24px; border-radius: 30px;
-            font-weight: 600; font-size: 0.95rem; z-index: 1;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            position: relative;
-            color: var(--primary-hover);
-        }
-
+        .org-level.connected::before { content: ''; position: absolute; top: 20px; left: 25%; right: 25%; height: 2px; background: var(--primary-light); z-index: 0; }
+        .org-level.parent-level::after { content: ''; position: absolute; top: 20px; left: 50%; width: 2px; height: 30px; background: var(--primary-light); z-index: 0; }
+        .org-node { background: #fff; border: 2px solid var(--primary-light); padding: 10px 24px; border-radius: 30px; font-weight: 600; font-size: 0.95rem; z-index: 1; box-shadow: 0 4px 15px rgba(0,0,0,0.03); position: relative; color: var(--primary-hover); }
         .node-down::after { content: ''; position: absolute; bottom: -30px; left: 50%; width: 2px; height: 30px; background: var(--primary-light); }
         .node-up::before { content: ''; position: absolute; top: -30px; left: 50%; width: 2px; height: 30px; background: var(--primary-light); }
 
-        /* ================= 2ª LINHA: GRADE BENTO ================= */
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
+        /* ================= GRADE BENTO ================= */
+        .bento-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
         .widget-content { max-height: 250px; overflow-y: auto; padding-right: 5px; }
         .widget-content::-webkit-scrollbar { width: 5px; }
         .widget-content::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 5px; }
 
-        /* Timeline */
-        .timeline-item {
-            padding: 12px; background: rgba(255,255,255,0.7); border-radius: 12px; margin-bottom: 10px; font-size: 0.9rem;
-            border-left: 3px solid transparent;
-        }
-        .timeline-item.active {
-            background: #fff; border-left-color: var(--accent); box-shadow: 0 2px 10px rgba(13, 148, 136, 0.08); font-weight: 500;
-        }
-
-        /* Listas Internas */
-        .list-item {
-            display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(255,255,255,0.7);
-            border-radius: 12px; margin-bottom: 10px; border: 1px solid transparent; transition: all 0.3s;
-        }
+        .timeline-item { padding: 12px; background: rgba(255,255,255,0.7); border-radius: 12px; margin-bottom: 10px; font-size: 0.9rem; border-left: 3px solid transparent; }
+        .timeline-item.active { background: #fff; border-left-color: var(--accent); box-shadow: 0 2px 10px rgba(13, 148, 136, 0.08); font-weight: 500; }
+        .list-item { display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(255,255,255,0.7); border-radius: 12px; margin-bottom: 10px; border: 1px solid transparent; transition: all 0.3s; }
         .list-item:hover { background: #fff; border-color: var(--primary-light); transform: translateY(-2px); }
-        
         .item-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold; }
         .item-icon.mint { background: var(--primary); }
         .item-icon.coral { background: var(--accent); }
-        
         .item-title { font-weight: 600; font-size: 0.95rem; }
         .item-sub { font-size: 0.8rem; color: var(--text-muted); }
 
-        /* ================= 3ª LINHA: ÁLBUM DE FOTOS ================= */
-        .album-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 15px;
+        /* ================= ÁLBUM DE FOTOS (Carrosséis) ================= */
+        .albums-container { display: flex; flex-direction: column; gap: 30px; }
+        
+        .album-block { display: flex; flex-direction: column; gap: 10px; }
+        .album-title { font-size: 1.05rem; font-weight: 600; color: var(--primary-hover); padding-left: 5px; border-left: 3px solid var(--accent); margin-left: 5px; }
+
+        .carousel-wrapper { position: relative; display: flex; align-items: center; width: 100%; }
+        
+        .carousel-track {
+            display: flex; gap: 15px; overflow-x: auto; scroll-behavior: smooth;
+            scroll-snap-type: x mandatory; padding: 5px;
+            /* Esconder a barra de rolagem para visual mais limpo */
+            -ms-overflow-style: none; scrollbar-width: none;
         }
+        .carousel-track::-webkit-scrollbar { display: none; }
 
         .photo-card {
+            flex: 0 0 calc(33.333% - 10px); /* 3 fotos por tela no desktop */
+            min-width: 250px; scroll-snap-align: start;
             border-radius: 12px; overflow: hidden; cursor: pointer; position: relative;
             border: 2px solid transparent; transition: all 0.3s; aspect-ratio: 4/3;
         }
-
         .photo-card:hover { border-color: var(--primary); transform: scale(1.02); box-shadow: 0 10px 20px rgba(13, 148, 136, 0.15); }
         .photo-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
+        
         .photo-overlay {
             position: absolute; bottom: 0; left: 0; right: 0;
             background: linear-gradient(transparent, rgba(30, 41, 59, 0.8));
             padding: 15px 10px 10px; color: white; font-size: 0.85rem; font-weight: 500;
-            opacity: 0; transition: opacity 0.3s;
+            opacity: 0; transition: opacity 0.3s; pointer-events: none;
         }
-
         .photo-card:hover .photo-overlay { opacity: 1; }
+
+        .carousel-btn {
+            position: absolute; z-index: 10;
+            width: 40px; height: 40px; border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9); border: 1px solid var(--primary-light);
+            color: var(--primary); font-size: 1.2rem; cursor: pointer;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: all 0.2s;
+        }
+        .carousel-btn:hover { background: var(--primary); color: white; }
+        .carousel-btn.prev { left: -15px; }
+        .carousel-btn.next { right: -15px; }
 
         /* Lightbox */
         .lightbox {
@@ -224,7 +181,7 @@
         .lightbox-close { position: absolute; top: 20px; right: 30px; font-size: 40px; color: white; cursor: pointer; transition: color 0.2s; }
         .lightbox-close:hover { color: var(--accent); }
 
-        /* ================= 4ª LINHA: LIVRO DE VISITAS ================= */
+        /* ================= LIVRO DE VISITAS ================= */
         .guestbook-layout { display: flex; flex-wrap: wrap; gap: 30px; }
         .gb-form { flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 15px; }
         .gb-inputs { display: flex; gap: 15px; }
@@ -232,11 +189,7 @@
         .gb-inputs input:focus { border-color: var(--primary); }
         .gb-form textarea { padding: 12px; border-radius: 12px; border: 1px solid rgba(13, 148, 136, 0.2); background: rgba(255,255,255,0.8); outline: none; resize: vertical; min-height: 80px; }
         .gb-form textarea:focus { border-color: var(--primary); }
-        
-        .btn-submit {
-            background: var(--accent); color: white; border: none; padding: 12px; border-radius: 12px;
-            font-weight: 600; cursor: pointer; align-self: flex-start; transition: background 0.3s;
-        }
+        .btn-submit { background: var(--accent); color: white; border: none; padding: 12px; border-radius: 12px; font-weight: 600; cursor: pointer; align-self: flex-start; transition: background 0.3s; }
         .btn-submit:hover { background: var(--accent-hover); }
 
         .gb-messages { flex: 2; min-width: 300px; display: flex; flex-direction: column; gap: 15px; max-height: 250px; overflow-y: auto; }
@@ -244,31 +197,19 @@
         .msg-author { font-weight: 700; margin-bottom: 2px; color: var(--text-main); }
         .msg-text { font-size: 0.95rem; color: var(--text-muted); }
 
-        /* ================= RESPONSIVIDADE (Preservada e Melhorada) ================= */
-        @media (max-width: 900px) {
-            .header-center { display: none; /* Esconde a busca em telas menores para priorizar o índice */ }
-        }
-
+        /* ================= RESPONSIVIDADE ================= */
+        @media (max-width: 900px) { .header-center { display: none; } }
         @media (max-width: 768px) {
-            header { 
-                top: 10px; height: auto; flex-wrap: wrap; 
-                justify-content: center; padding: 10px; 
-            }
+            header { top: 10px; height: auto; flex-wrap: wrap; justify-content: center; padding: 10px; }
             .header-left { width: 100%; justify-content: center; margin-bottom: 10px; }
             .header-right { width: 100%; justify-content: center; }
-            
-            /* Remove os textos do menu no mobile, deixa apenas ícones para economizar espaço do Sticky Header */
             .nav-item span { display: none; }
             .nav-item svg { width: 26px; height: 26px; }
-            
             .gb-inputs { flex-direction: column; }
-            .album-grid { grid-template-columns: repeat(2, 1fr); }
+            .carousel-btn { display: none; } /* Oculta setas no mobile, usuário usa swipe */
+            .photo-card { flex: 0 0 calc(80% - 10px); }
         }
-        
-        @media (max-width: 480px) {
-            .album-grid { grid-template-columns: 1fr; }
-            .org-chart { min-width: 100%; overflow-x: auto; } /* Permite rolar a árvore genealógica no mobile */
-        }
+        @media (max-width: 480px) { .org-chart { min-width: 100%; overflow-x: auto; } }
     </style>
 </head>
 <body>
@@ -318,13 +259,12 @@
         </section>
 
         <section class="bento-grid">
-            
             <div id="linha-do-tempo" class="glass-panel scroll-target observer-section">
                 <div class="section-title">⏳ LINHA DO TEMPO</div>
                 <div class="widget-content">
                     <div class="timeline-item active">Abril de 2026: 1 Aninho da Ayla Liz</div>
-                    <div class="timeline-item">Março de 2026: Refatoração do BOT Engine</div>
-                    <div class="timeline-item">Fevereiro de 2026: Lançamento v1.0.0 (Stable)</div>
+                    <div class="timeline-item">Março de 2026: Nova Fase Profissional</div>
+                    <div class="timeline-item">Fevereiro de 2026: Férias em Família</div>
                 </div>
             </div>
 
@@ -361,31 +301,64 @@
                     </div>
                 </div>
             </div>
-
         </section>
 
         <section id="fotos" class="glass-panel scroll-target observer-section">
             <div class="section-title">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                ÁLBUM DE FOTOS
+                ÁLBUNS DE FOTOS
             </div>
-            <div class="album-grid">
-                <div class="photo-card" onclick="openLightbox('https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=1200&q=80')">
-                    <img src="https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=400&q=80" alt="Ayla Liz 1 Aninho">
-                    <div class="photo-overlay">Ayla Liz - 1 Aninho</div>
+            
+            <div class="albums-container">
+                
+                <div class="album-block">
+                    <h3 class="album-title">1 Aninho da Ayla Liz</h3>
+                    <div class="carousel-wrapper">
+                        <button class="carousel-btn prev" onclick="scrollCarousel(this, -1)">&#10094;</button>
+                        <div class="carousel-track">
+                            <div class="photo-card" onclick="openLightbox('https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=1200&q=80')">
+                                <img src="https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=400&q=80" alt="Bolo">
+                                <div class="photo-overlay">Hora do Parabéns</div>
+                            </div>
+                            <div class="photo-card" onclick="openLightbox('https://images.unsplash.com/photo-1530103862676-de8892bc952f?auto=format&fit=crop&w=1200&q=80')">
+                                <img src="https://images.unsplash.com/photo-1530103862676-de8892bc952f?auto=format&fit=crop&w=400&q=80" alt="Decoração">
+                                <div class="photo-overlay">Mesa Decorada</div>
+                            </div>
+                            <div class="photo-card" onclick="openLightbox('https://images.unsplash.com/photo-1464347744102-11db6282f854?auto=format&fit=crop&w=1200&q=80')">
+                                <img src="https://images.unsplash.com/photo-1464347744102-11db6282f854?auto=format&fit=crop&w=400&q=80" alt="Presentes">
+                                <div class="photo-overlay">Abrindo Presentes</div>
+                            </div>
+                            <div class="photo-card" onclick="openLightbox('https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=1200&q=80')">
+                                <img src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=400&q=80" alt="Brincadeiras">
+                                <div class="photo-overlay">Brincadeiras</div>
+                            </div>
+                        </div>
+                        <button class="carousel-btn next" onclick="scrollCarousel(this, 1)">&#10095;</button>
+                    </div>
                 </div>
-                <div class="photo-card" onclick="openLightbox('https://images.unsplash.com/photo-1530103862676-de8892bc952f?auto=format&fit=crop&w=1200&q=80')">
-                    <img src="https://images.unsplash.com/photo-1530103862676-de8892bc952f?auto=format&fit=crop&w=400&q=80" alt="Mesa do Bolo">
-                    <div class="photo-overlay">Mesa Decorada</div>
+
+                <div class="album-block">
+                    <h3 class="album-title">Férias em Família</h3>
+                    <div class="carousel-wrapper">
+                        <button class="carousel-btn prev" onclick="scrollCarousel(this, -1)">&#10094;</button>
+                        <div class="carousel-track">
+                            <div class="photo-card" onclick="openLightbox('https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80')">
+                                <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=400&q=80" alt="Praia">
+                                <div class="photo-overlay">Dia de Praia</div>
+                            </div>
+                            <div class="photo-card" onclick="openLightbox('https://images.unsplash.com/photo-1476611317561-60117649dd94?auto=format&fit=crop&w=1200&q=80')">
+                                <img src="https://images.unsplash.com/photo-1476611317561-60117649dd94?auto=format&fit=crop&w=400&q=80" alt="Parque">
+                                <div class="photo-overlay">Passeio no Parque</div>
+                            </div>
+                            <div class="photo-card" onclick="openLightbox('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80')">
+                                <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=400&q=80" alt="Estrada">
+                                <div class="photo-overlay">Viagem de Carro</div>
+                            </div>
+                        </div>
+                        <button class="carousel-btn next" onclick="scrollCarousel(this, 1)">&#10095;</button>
+                    </div>
                 </div>
-                <div class="photo-card" onclick="openLightbox('https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80')">
-                    <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=400&q=80" alt="Férias">
-                    <div class="photo-overlay">Férias na Praia</div>
-                </div>
-                <div class="photo-card" onclick="openLightbox('https://images.unsplash.com/photo-1476611317561-60117649dd94?auto=format&fit=crop&w=1200&q=80')">
-                    <img src="https://images.unsplash.com/photo-1476611317561-60117649dd94?auto=format&fit=crop&w=400&q=80" alt="Passeio">
-                    <div class="photo-overlay">Passeio no Parque</div>
-                </div>
+
             </div>
         </section>
 
@@ -427,7 +400,14 @@
     </div>
 
     <script>
-        // Lógica do Lightbox
+        // Sistema do Carrossel de Fotos
+        function scrollCarousel(button, direction) {
+            const track = button.parentElement.querySelector('.carousel-track');
+            const scrollAmount = track.clientWidth * 0.8; // Rola 80% da área visível por clique
+            track.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+        }
+
+        // Sistema do Lightbox (Ampliar Foto)
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
 
@@ -448,24 +428,21 @@
             }
         }
 
-        // Script para atualizar a cor do menu conforme a rolagem da página
+        // Highlight do menu ao rolar a página
         document.addEventListener("DOMContentLoaded", function() {
             const sections = document.querySelectorAll('.observer-section');
             const navLinks = document.querySelectorAll('.nav-item');
 
             const observerOptions = {
                 root: null,
-                rootMargin: '-100px 0px -60% 0px', // Aciona quando a seção chega perto do topo
+                rootMargin: '-100px 0px -60% 0px', 
                 threshold: 0
             };
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Remove a classe active de todos
                         navLinks.forEach(link => link.classList.remove('active'));
-                        
-                        // Adiciona no link correspondente
                         const id = entry.target.getAttribute('id');
                         const activeLink = document.querySelector(`a[href="#${id}"]`);
                         if(activeLink) activeLink.classList.add('active');
@@ -473,9 +450,7 @@
                 });
             }, observerOptions);
 
-            sections.forEach(section => {
-                observer.observe(section);
-            });
+            sections.forEach(section => { observer.observe(section); });
         });
     </script>
 </body>
