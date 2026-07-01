@@ -27,13 +27,14 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        
+        /* Rolagem suave nativa */
         html { scroll-behavior: smooth; }
 
         body {
             background: linear-gradient(135deg, #f0fdfa 0%, #fff1f2 100%);
             color: var(--text-main);
             min-height: 100vh;
-            padding: 20px;
             display: flex;
             justify-content: center;
         }
@@ -44,7 +45,7 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
-            margin-bottom: 40px;
+            padding: 0 20px 40px 20px; /* O padding top foi zerado para colar o cabeçalho */
         }
 
         .glass-panel {
@@ -57,15 +58,25 @@
             padding: 20px;
         }
 
-        .scroll-target { scroll-margin-top: 110px; }
+        /* Offset mágico que impede a section de ficar atrás do header ao clicar no link */
+        .scroll-target { 
+            scroll-margin-top: 100px; 
+        }
 
-        /* ================= CABEÇALHO (Sticky Index) ================= */
+        /* ================= CABEÇALHO (Colado no Topo) ================= */
         header {
-            position: sticky; top: 20px; z-index: 1000;
+            position: sticky; 
+            top: 0; /* Cola no topo absoluto */
+            z-index: 1000;
             display: flex; align-items: center; justify-content: space-between; gap: 20px;
-            padding: 10px 20px; height: 75px;
+            padding: 10px 20px; 
+            min-height: 75px;
             backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
             background: rgba(255, 255, 255, 0.85);
+            /* Arredonda apenas embaixo para encaixar no topo da tela */
+            border-radius: 0 0 var(--radius) var(--radius); 
+            border-top: none;
+            margin-bottom: 10px;
         }
 
         .header-left { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.2rem; min-width: 200px; }
@@ -125,25 +136,20 @@
         .item-title { font-weight: 600; font-size: 0.95rem; }
         .item-sub { font-size: 0.8rem; color: var(--text-muted); }
 
-        /* ================= ÁLBUM DE FOTOS (Carrosséis) ================= */
+        /* ================= ÁLBUM DE FOTOS ================= */
         .albums-container { display: flex; flex-direction: column; gap: 30px; }
-        
         .album-block { display: flex; flex-direction: column; gap: 10px; }
         .album-title { font-size: 1.05rem; font-weight: 600; color: var(--primary-hover); padding-left: 5px; border-left: 3px solid var(--accent); margin-left: 5px; }
 
         .carousel-wrapper { position: relative; display: flex; align-items: center; width: 100%; }
-        
         .carousel-track {
             display: flex; gap: 15px; overflow-x: auto; scroll-behavior: smooth;
-            scroll-snap-type: x mandatory; padding: 5px;
-            /* Esconder a barra de rolagem para visual mais limpo */
-            -ms-overflow-style: none; scrollbar-width: none;
+            scroll-snap-type: x mandatory; padding: 5px; -ms-overflow-style: none; scrollbar-width: none;
         }
         .carousel-track::-webkit-scrollbar { display: none; }
 
         .photo-card {
-            flex: 0 0 calc(33.333% - 10px); /* 3 fotos por tela no desktop */
-            min-width: 250px; scroll-snap-align: start;
+            flex: 0 0 calc(33.333% - 10px); min-width: 250px; scroll-snap-align: start;
             border-radius: 12px; overflow: hidden; cursor: pointer; position: relative;
             border: 2px solid transparent; transition: all 0.3s; aspect-ratio: 4/3;
         }
@@ -159,8 +165,7 @@
         .photo-card:hover .photo-overlay { opacity: 1; }
 
         .carousel-btn {
-            position: absolute; z-index: 10;
-            width: 40px; height: 40px; border-radius: 50%;
+            position: absolute; z-index: 10; width: 40px; height: 40px; border-radius: 50%;
             background: rgba(255, 255, 255, 0.9); border: 1px solid var(--primary-light);
             color: var(--primary); font-size: 1.2rem; cursor: pointer;
             display: flex; justify-content: center; align-items: center;
@@ -200,13 +205,14 @@
         /* ================= RESPONSIVIDADE ================= */
         @media (max-width: 900px) { .header-center { display: none; } }
         @media (max-width: 768px) {
-            header { top: 10px; height: auto; flex-wrap: wrap; justify-content: center; padding: 10px; }
-            .header-left { width: 100%; justify-content: center; margin-bottom: 10px; }
+            header { top: 0; padding: 15px; border-radius: 0 0 20px 20px; }
+            .scroll-target { scroll-margin-top: 130px; } /* Dá mais espaço no mobile pois o header empilha */
+            .header-left { width: 100%; justify-content: center; margin-bottom: 5px; }
             .header-right { width: 100%; justify-content: center; }
             .nav-item span { display: none; }
             .nav-item svg { width: 26px; height: 26px; }
             .gb-inputs { flex-direction: column; }
-            .carousel-btn { display: none; } /* Oculta setas no mobile, usuário usa swipe */
+            .carousel-btn { display: none; } 
             .photo-card { flex: 0 0 calc(80% - 10px); }
         }
         @media (max-width: 480px) { .org-chart { min-width: 100%; overflow-x: auto; } }
@@ -400,14 +406,12 @@
     </div>
 
     <script>
-        // Sistema do Carrossel de Fotos
         function scrollCarousel(button, direction) {
             const track = button.parentElement.querySelector('.carousel-track');
-            const scrollAmount = track.clientWidth * 0.8; // Rola 80% da área visível por clique
+            const scrollAmount = track.clientWidth * 0.8;
             track.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
         }
 
-        // Sistema do Lightbox (Ampliar Foto)
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
 
@@ -428,14 +432,13 @@
             }
         }
 
-        // Highlight do menu ao rolar a página
         document.addEventListener("DOMContentLoaded", function() {
             const sections = document.querySelectorAll('.observer-section');
             const navLinks = document.querySelectorAll('.nav-item');
 
             const observerOptions = {
                 root: null,
-                rootMargin: '-100px 0px -60% 0px', 
+                rootMargin: '-120px 0px -50% 0px', 
                 threshold: 0
             };
 
