@@ -1,0 +1,11 @@
+<keybind key="C-A-r">
+  <action name="Execute">
+    <command>sudo reboot</command>
+  </action>
+</keybind>
+
+<keybind key="C-A-d">
+  <action name="Execute">
+    <command>sudo poweroff</command>
+  </action>
+</keybind>
