@@ -1,1 +1,1 @@
-gio set ~/Área\ de\ Trabalho/Desligar.desktop "metadata::xfce-executable-file" "true"
+gio set /home/payge/Área de trabalho/Desligar.desktop "metadata::xfce-executable-file" "true"
