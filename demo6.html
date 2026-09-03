@@ -494,25 +494,25 @@
 
             <!-- CAROUSEL DE PROMOÇÕES (ETIQUETAS LANDSCAPE) ABAIXO DO CABEÇALHO -->
             <div class="promo-carousel-container">
-                <div class="promo-landscape-tag" onclick="openWhatsApp('Óleo Hot Beijável (Promoção)')">
+                <div class="promo-landscape-tag" onclick="openWhatsApp('Óleo Hot Beijável (Promoção Relâmpago)')">
                     <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=200&q=80" alt="Promo" class="promo-thumb">
                     <div class="promo-info">
-                        <span class="promo-badge-text">🔥 Oferta Relâmpago</span>
+                        <span class="promo-badge-text">🔥 Promoção Relâmpago</span>
                         <div class="promo-title">Óleo Hot Beijável</div>
                         <div class="promo-price-tag">R$ 39,90</div>
                     </div>
                 </div>
 
-                <div class="promo-landscape-tag" onclick="openWhatsApp('Gel Lubrificante Silk (Promoção)')">
+                <div class="promo-landscape-tag" onclick="openWhatsApp('Gel Lubrificante Silk (Promoção Destaque)')">
                     <img src="https://images.unsplash.com/photo-1584949514125-9c849e7b2ff9?auto=format&fit=crop&w=200&q=80" alt="Promo" class="promo-thumb">
                     <div class="promo-info">
-                        <span class="badge-local" style="position:static; display:inline-block; margin-bottom:2px;">Destaque</span>
+                        <span class="promo-badge-text" style="color:var(--store-color-1)">⚡ Oferta do Dia</span>
                         <div class="promo-title">Gel Lubrificante Silk</div>
                         <div class="promo-price-tag">R$ 29,90</div>
                     </div>
                 </div>
 
-                <div class="promo-landscape-tag" onclick="openWhatsApp('Kit Pimenta Noite (Promoção)')">
+                <div class="promo-landscape-tag" onclick="openWhatsApp('Kit Pimenta Noite (Combo Especial)')">
                     <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=200&q=80" alt="Promo" class="promo-thumb">
                     <div class="promo-info">
                         <span class="promo-badge-text">✨ Combo Especial</span>
@@ -536,12 +536,12 @@
                 <!-- Produtos Iniciais -->
                 <div class="product-card">
                     <div class="product-img-wrapper">
-                        <span class="badge-local">Discreto</span>
+                        <span class="badge-local">Promo</span>
                         <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=400&q=80" alt="Produto" class="product-img">
                     </div>
                     <div class="product-details">
                         <div class="product-title">Óleo Hot Beijável</div>
-                        <div class="product-price">R$ 59,90</div>
+                        <div class="product-price">R$ 39,90</div>
                         <button class="btn-whatsapp" onclick="openWhatsApp('Óleo Hot Beijável')">
                             <i class="fa-brands fa-whatsapp"></i> Pedir
                         </button>
@@ -550,12 +550,12 @@
 
                 <div class="product-card">
                     <div class="product-img-wrapper">
-                        <span class="badge-local">Destaque</span>
+                        <span class="badge-local">Oferta</span>
                         <img src="https://images.unsplash.com/photo-1584949514125-9c849e7b2ff9?auto=format&fit=crop&w=400&q=80" alt="Produto" class="product-img">
                     </div>
                     <div class="product-details">
                         <div class="product-title">Gel Lubrificante Silk</div>
-                        <div class="product-price">R$ 49,90</div>
+                        <div class="product-price">R$ 29,90</div>
                         <button class="btn-whatsapp" onclick="openWhatsApp('Gel Lubrificante Silk')">
                             <i class="fa-brands fa-whatsapp"></i> Pedir
                         </button>
@@ -564,12 +564,12 @@
 
                 <div class="product-card">
                     <div class="product-img-wrapper">
-                        <span class="badge-local">Exclusivo</span>
+                        <span class="badge-local">Combo</span>
                         <img src="https://images.unsplash.com/photo-1512168203104-3910cb2aac8c?auto=format&fit=crop&w=400&q=80" alt="Produto" class="product-img">
                     </div>
                     <div class="product-details">
                         <div class="product-title">Vela Aromática</div>
-                        <div class="product-price">R$ 79,90</div>
+                        <div class="product-price">R$ 59,90</div>
                         <button class="btn-whatsapp" onclick="openWhatsApp('Vela Aromática')">
                             <i class="fa-brands fa-whatsapp"></i> Pedir
                         </button>
@@ -631,7 +631,7 @@
         // Redirecionamento ao WhatsApp
         function openWhatsApp(productName) {
             const phoneNumber = "5562999999999"; 
-            const message = encodeURIComponent(`Olá! Gostaria de mais informações sobre o produto: *${productName}*.`);
+            const message = encodeURIComponent(`Olá! Gostaria de mais informações sobre a promoção do produto: *${productName}*.`);
             window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
         }
 
@@ -644,15 +644,15 @@
             });
         });
 
-        // SIMULAÇÃO DE ROLAGEM INFINITA (Infinite Scroll)
+        // SIMULAÇÃO DE ROLAGEM INFINITA (Infinite Scroll) com itens em promoção
         const productGrid = document.getElementById('product-grid');
         const loadingIndicator = document.getElementById('loading-indicator');
         let isLoading = false;
 
         const sampleProducts = [
-            { name: "Kit Pimenta Noite", price: "R$ 139,90", img: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=400&q=80", badge: "Kit" },
-            { name: "Loção Corporal Seduction", price: "R$ 69,90", img: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=400&q=80", badge: "Novo" },
-            { name: "Conjunto Renda Noir", price: "R$ 189,90", img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80", badge: "Lingerie" }
+            { name: "Kit Pimenta Noite (Promoção)", price: "R$ 99,90", img: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=400&q=80", badge: "Promo" },
+            { name: "Loção Corporal Seduction (Oferta)", price: "R$ 49,90", img: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=400&q=80", badge: "Oferta" },
+            { name: "Conjunto Renda Noir (Especial)", price: "R$ 139,90", img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80", badge: "Combo" }
         ];
 
         function loadMoreProducts() {
