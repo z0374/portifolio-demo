@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pimentaria & Sexshop | Aparecida de Goiânia</title>
+    <!-- Fonte Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Ícones FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0c0a0b;
+            --surface-color: #161214;
+            --primary-red: #8b0000;
+            --accent-gold: #d4af37;
+            --text-light: #f3f3f3;
+            --text-muted: #999999;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        /* ================= CAPA DE ENTRADA (+18) ================= */
+        #cover-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(12,10,11,0.95) 0%, rgba(22,18,20,0.98) 100%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .cover-card {
+            background: var(--surface-color);
+            padding: 40px 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            max-width: 420px;
+            width: 100%;
+        }
+
+        .cover-icon {
+            font-size: 40px;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+        }
+
+        .cover-card h1 {
+            color: var(--text-light);
+            font-size: 22px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .cover-card span {
+            color: var(--accent-gold);
+        }
+
+        .cover-card p {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn-enter {
+            background: linear-gradient(135deg, var(--primary-red), #500);
+            color: #fff;
+            border: none;
+            padding: 14px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s, filter 0.3s;
+            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4);
+            letter-spacing: 1px;
+        }
+
+        .btn-enter:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.2);
+        }
+
+        /* ================= CONTEÚDO DO CATÁLOGO ================= */
+        #main-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            background-color: rgba(12, 10, 11, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid #222;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-area i {
+            color: var(--accent-gold);
+            font-size: 22px;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-light);
+            letter-spacing: 0.5px;
+        }
+
+        .logo-text span {
+            color: var(--accent-gold);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .header-actions i {
+            font-size: 18px;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: color 0.3s;
+        }
+
+        .header-actions i:hover {
+            color: var(--accent-gold);
+        }
+
+        .btn-panic {
+            color: #ff4757 !important;
+        }
+
+        /* Banner de Localização */
+        .location-banner {
+            background: linear-gradient(90deg, #161214, #221518);
+            padding: 10px 20px;
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid #251b1d;
+        }
+
+        .location-banner i {
+            color: var(--accent-gold);
+        }
+
+        /* Categorias em Carrossel */
+        .categories {
+            display: flex;
+            overflow-x: auto;
+            padding: 15px 20px;
+            gap: 12px;
+            scrollbar-width: none;
+        }
+        .categories::-webkit-scrollbar { display: none; }
+
+        .cat-btn {
+            background-color: var(--surface-color);
+            color: var(--text-light);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+            border: 1px solid #2a2225;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .cat-btn.active, .cat-btn:hover {
+            background-color: var(--accent-gold);
+            color: #000;
+            border-color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        /* Grade de Produtos */
+        .catalog-container {
+            padding: 10px 20px 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+        }
+
+        .product-card {
+            background-color: var(--surface-color);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #221a1d;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+
+        .product-img-wrapper {
+            position: relative;
+            width: 100%;
+            height: 160px;
+            background: #111;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .badge-local {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(139, 0, 0, 0.85);
+            color: #fff;
+            font-size: 9px;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .product-details {
+            padding: 12px;
+        }
+
+        .product-title {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-light);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-price {
+            color: var(--accent-gold);
+            font-weight: 700;
+            font-size: 15px;
+            margin-bottom: 12px;
+        }
+
+        .btn-whatsapp {
+            width: 100%;
+            background-color: #25d366;
+            color: #fff;
+            border: none;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: filter 0.2s;
+        }
+
+        .btn-whatsapp:hover {
+            filter: brightness(1.1);
+        }
+
+        /* Rodapé de Confiança */
+        footer {
+            background-color: #080607;
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 1px solid #221a1d;
+        }
+
+        .trust-grid {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 25px;
+            gap: 10px;
+        }
+
+        .trust-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 10px;
+            color: var(--text-muted);
+            max-width: 90px;
+        }
+
+        .trust-item i {
+            font-size: 20px;
+            color: var(--accent-gold);
+            margin-bottom: 6px;
+        }
+
+        .footer-info {
+            font-size: 11px;
+            color: #666;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CAPA DE ENTRADA / VERIFICAÇÃO DE IDADE -->
+    <div id="cover-screen">
+        <div class="cover-card">
+            <div class="cover-icon">
+                <i class="fa-solid fa-pepper-hot"></i>
+            </div>
+            <h1>Pimentaria & <span>Sexshop</span></h1>
+            <p>Bem-vindo(a)! Este ambiente virtual é exclusivo para maiores de 18 anos. Produtos voltados para o bem-estar e prazer com entrega sigilosa em Aparecida de Goiânia.</p>
+            <button class="btn-enter" onclick="enterStore()">ENTRAR NO CATÁLOGO</button>
+        </div>
+    </div>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <div id="main-content">
+        <!-- Header -->
+        <header>
+            <div class="logo-area">
+                <i class="fa-solid fa-pepper-hot"></i>
+                <div class="logo-text">Pimentaria <span>Sexshop</span></div>
+            </div>
+            <div class="header-actions">
+                <i class="fa-solid fa-magnifying-glass" title="Buscar"></i>
+                <i class="fa-solid fa-bag-shopping" title="Carrinho"></i>
+                <!-- Botão de Pânico / Modo Discreto -->
+                <i class="fa-solid fa-eye-slash btn-panic" onclick="panicMode()" title="Modo Discreto (Sair Rápido)"></i>
+            </div>
+        </header>
+
+        <!-- Faixa de Localidade -->
+        <div class="location-banner">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Atendimento rápido e entregas discretas em <strong>Aparecida de Goiânia e região</strong></span>
+        </div>
+
+        <!-- Categorias -->
+        <nav class="categories">
+            <button class="cat-btn active">Destaques</button>
+            <button class="cat-btn">Géis & Lubrificantes</button>
+            <button class="cat-btn">Cosméticos Sensuais</button>
+            <button class="cat-btn">Lingeries</button>
+            <button class="cat-btn">Acessórios</button>
+            <button class="cat-btn">Kits Especiais</button>
+        </nav>
+
+        <!-- Grade de Produtos -->
+        <main class="catalog-container">
+            <!-- Item 1 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <span class="badge-local">Discreto</span>
+                    <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=400&q=80" alt="Óleo Corporal" class="product-img">
+                </div>
+                <div class="product-details">
+                    <div class="product-title">Óleo de Massagem Beijável Hot</div>
+                    <div class="product-price">R$ 59,90</div>
+                    <button class="btn-whatsapp" onclick="openWhatsApp('Óleo de Massagem Beijável Hot')">
+                        <i class="fa-brands fa-whatsapp"></i> Pedir via Zap
+                    </button>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <span class="badge-local">Entrega Rápida</span>
+                    <img src="https://images.unsplash.com/photo-1584949514125-9c849e7b2ff9?auto=format&fit=crop&w=400&q=80" alt="Gel Lubrificante" class="product-img">
+                </div>
+                <div class="product-details">
+                    <div class="product-title">Gel Lubrificante Premium Silk</div>
+                    <div class="product-price">R$ 49,90</div>
+                    <button class="btn-whatsapp" onclick="openWhatsApp('Gel Lubrificante Premium Silk')">
+                        <i class="fa-brands fa-whatsapp"></i> Pedir via Zap
+                    </button>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <span class="badge-local">Exclusivo</span>
+                    <img src="https://images.unsplash.com/photo-1512168203104-3910cb2aac8c?auto=format&fit=crop&w=400&q=80" alt="Vela Aromática" class="product-img">
+                </div>
+                <div class="product-details">
+                    <div class="product-title">Vela de Massagem Aromática</div>
+                    <div class="product-price">R$ 79,90</div>
+                    <button class="btn-whatsapp" onclick="openWhatsApp('Vela de Massagem Aromática')">
+                        <i class="fa-brands fa-whatsapp"></i> Pedir via Zap
+                    </button>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <span class="badge-local">Kit Desejo</span>
+                    <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=400&q=80" alt="Kit Sensual" class="product-img">
+                </div>
+                <div class="product-details">
+                    <div class="product-title">Kit Pimenta Noite Íntima</div>
+                    <div class="product-price">R$ 139,90</div>
+                    <button class="btn-whatsapp" onclick="openWhatsApp('Kit Pimenta Noite Íntima')">
+                        <i class="fa-brands fa-whatsapp"></i> Pedir via Zap
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Rodapé -->
+        <footer>
+            <div class="trust-grid">
+                <div class="trust-item">
+                    <i class="fa-solid fa-box-open"></i>
+                    <span>Embalagem 100% Discreta</span>
+                </div>
+                <div class="trust-item">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Sigilo Absoluto na Fatura</span>
+                </div>
+                <div class="trust-item">
+                    <i class="fa-solid fa-motorcycle"></i>
+                    <span>Entrega Local Ágil</span>
+                </div>
+            </div>
+            <div class="footer-info">
+                <p><strong>Pimentaria & Sexshop - Aparecida de Goiânia</strong></p>
+                <p>Proibido para menores de 18 anos. Todos os direitos reservados &copy; 2026</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Transição da Capa para o Conteúdo
+        function enterStore() {
+            const cover = document.getElementById('cover-screen');
+            const mainContent = document.getElementById('main-content');
+            
+            cover.style.opacity = '0';
+            setTimeout(() => {
+                cover.style.display = 'none';
+                mainContent.style.display = 'block';
+                setTimeout(() => {
+                    mainContent.style.opacity = '1';
+                }, 50);
+            }, 600);
+        }
+
+        // Botão de Pânico (Modo Discreto) - Redireciona para o Google de imediato
+        function panicMode() {
+            window.location.replace('https://www.google.com');
+        }
+
+        // Integração rápida para direcionar o pedido ao WhatsApp com o produto escolhido
+        function openWhatsApp(productName) {
+            const phoneNumber = "5562999999999"; // Substitua pelo número real da loja em Aparecida
+            const message = encodeURIComponent(`Olá! Gostaria de mais informações ou fechar pedido do produto: *${productName}* visto no catálogo online.`);
+            window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+        }
+
+        // Interação dos filtros de categoria
+        const catButtons = document.querySelectorAll('.cat-btn');
+        catButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                catButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
