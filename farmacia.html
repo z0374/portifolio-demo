@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmácia Bem-Estar | Saúde e Perfumaria</title>
+    <!-- Fonte Inter para um visual limpo e moderno -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Ícones FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --surface-color: #ffffff;
+            --primary-green: #00b894; /* Verde Saúde */
+            --primary-blue: #0984e3;  /* Azul Confiança */
+            --alert-red: #ff7675;     /* Vermelho Promoção */
+            --text-dark: #2d3436;
+            --text-muted: #636e72;
+            --border-color: #dfe6e9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ================= CAPA DE ENTRADA ================= */
+        #cover-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(248, 249, 250, 0.95) 0%, rgba(223, 230, 233, 0.98) 100%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .cover-card {
+            background: var(--surface-color);
+            padding: 40px 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 420px;
+            width: 100%;
+        }
+
+        .cover-icon {
+            font-size: 40px;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+
+        .cover-card h1 {
+            color: var(--primary-blue);
+            font-size: 24px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .cover-card p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn-enter {
+            background-color: var(--primary-green);
+            color: #fff;
+            border: none;
+            padding: 14px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s, background 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 184, 148, 0.4);
+            letter-spacing: 1px;
+        }
+
+        .btn-enter:hover {
+            transform: translateY(-2px);
+            background-color: #00a884;
+        }
+
+        /* ================= CONTEÚDO PRINCIPAL ================= */
+        #main-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        /* ================= TOPO / HEADER ================= */
+        .top-bar {
+            background-color: var(--primary-blue);
+            color: #fff;
+            text-align: center;
+            padding: 8px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            background-color: var(--surface-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-area i {
+            color: var(--primary-green);
+            font-size: 24px;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-actions i {
+            font-size: 20px;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .header-actions i:hover {
+            color: var(--primary-green);
+        }
+
+        /* ================= MENU DE NAVEGAÇÃO ================= */
+        nav {
+            background-color: var(--surface-color);
+            display: flex;
+            overflow-x: auto;
+            padding: 12px 20px;
+            gap: 30px; 
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            scrollbar-width: none;
+            justify-content: center; 
+        }
+        nav::-webkit-scrollbar { display: none; }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 20px; 
+            transition: color 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        nav a::after {
+            content: attr(title);
+            font-size: 10px;
+            font-weight: 600;
+            margin-top: 4px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        nav a:hover {
+            color: var(--primary-green);
+        }
+
+        /* ================= TÍTULOS DE SEÇÃO ================= */
+        .section-title {
+            padding: 30px 20px 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .section-title i {
+            color: var(--primary-green);
+        }
+
+        /* ================= 1. PROMOÇÕES (SCROLL HORIZONTAL) ================= */
+        .promo-container {
+            display: flex;
+            overflow-x: auto;
+            padding: 10px 20px;
+            gap: 15px;
+            scrollbar-width: none;
+        }
+        .promo-container::-webkit-scrollbar { display: none; }
+
+        .promo-banner {
+            min-width: 280px;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .promo-banner h3 {
+            color: #d63031;
+            font-size: 18px;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .promo-banner p {
+            color: #2d3436;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .promo-banner button {
+            background-color: #d63031;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            width: fit-content;
+        }
+
+        /* ================= 2. SEÇÃO FAMÍLIA ================= */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            padding: 10px 20px;
+        }
+
+        .product-card {
+            background-color: var(--surface-color);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            position: relative;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .badge-ind {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--primary-green);
+            color: #fff;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .product-title {
+            font-size: 12px;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+            height: 34px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .product-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+
+        .btn-add {
+            width: 100%;
+            background-color: var(--surface-color);
+            color: var(--primary-green);
+            border: 1px solid var(--primary-green);
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-add:hover {
+            background-color: var(--primary-green);
+            color: #fff;
+        }
+
+        /* ================= 3. SERVIÇOS ================= */
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 10px 20px;
+        }
+
+        .service-card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .service-card:hover {
+            border-color: var(--primary-blue);
+        }
+
+        .service-card i {
+            font-size: 30px;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+
+        .service-card h4 {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        /* ================= 4. PERFUMARIA E COSMÉTICOS ================= */
+        .perfumery-banner {
+            margin: 10px 20px;
+            border-radius: 12px;
+            height: 120px;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=800&q=80') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* ================= 5. CONVÊNIOS ================= */
+        .convenio-container {
+            padding: 10px 20px;
+        }
+
+        .convenio-card {
+            background: linear-gradient(135deg, #0984e3 0%, #00cec9 100%);
+            border-radius: 12px;
+            padding: 25px;
+            color: #fff;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(9, 132, 227, 0.2);
+        }
+
+        .convenio-card h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .convenio-card p {
+            font-size: 13px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        .btn-convenio {
+            background-color: #fff;
+            color: var(--primary-blue);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-convenio:hover {
+            background-color: #f1f2f6;
+        }
+
+        /* ================= 6. TRABALHE CONOSCO ================= */
+        .jobs-container {
+            padding: 10px 20px;
+        }
+
+        .jobs-card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .jobs-card i {
+            font-size: 35px;
+            color: var(--primary-green);
+            margin-bottom: 12px;
+        }
+
+        .jobs-card h3 {
+            font-size: 16px;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .jobs-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .btn-jobs {
+            background-color: var(--surface-color);
+            color: var(--primary-green);
+            border: 1px solid var(--primary-green);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-jobs:hover {
+            background-color: var(--primary-green);
+            color: #fff;
+        }
+
+        /* ================= 7. SEÇÃO SAC ================= */
+        .sac-container {
+            padding: 10px 20px;
+        }
+
+        .sac-card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .sac-card i {
+            font-size: 35px;
+            color: var(--primary-blue);
+            margin-bottom: 12px;
+        }
+
+        .sac-card h3 {
+            font-size: 16px;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .sac-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .btn-sac {
+            background-color: var(--primary-blue);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-sac:hover {
+            background-color: #0768b5;
+        }
+
+        /* ================= BOTÃO FLUTUANTE DO WHATSAPP (FARMACÊUTICO) ================= */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25d366;
+            color: #fff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            z-index: 1001;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* ================= RODAPÉ ================= */
+        footer {
+            background-color: var(--text-dark);
+            color: #fff;
+            padding: 40px 20px 20px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .trust-grid {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+        }
+
+        .trust-item i {
+            font-size: 24px;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+
+        .trust-item span {
+            display: block;
+            font-size: 11px;
+            color: #dfe6e9;
+        }
+
+        .footer-info p {
+            font-size: 11px;
+            color: #b2bec3;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CAPA DE ENTRADA / BOAS-VINDAS -->
+    <div id="cover-screen">
+        <div class="cover-card">
+            <div class="cover-icon">
+                <i class="fa-solid fa-notes-medical"></i>
+            </div>
+            <h1>Bem-vindo à Farmácia Bem-Estar!</h1>
+            <p>Seu espaço de saúde, beleza e cuidado pessoal. Explore nossos produtos e serviços com comodidade e segurança.</p>
+            <button class="btn-enter" onclick="enterStore()">ACESSAR A LOJA</button>
+        </div>
+    </div>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <div id="main-content">
+        <div class="top-bar">
+            Entrega rápida em até 2 horas na sua região! 🛵
+        </div>
+
+        <header>
+            <a href="#" class="logo-area">
+                <i class="fa-solid fa-notes-medical"></i>
+                <div class="logo-text">Bem-Estar</div>
+            </a>
+            <div class="header-actions">
+                <i class="fa-solid fa-magnifying-glass" title="Buscar"></i>
+                <i class="fa-regular fa-user" title="Minha Conta"></i>
+                <i class="fa-solid fa-cart-shopping" title="Carrinho"></i>
+            </div>
+        </header>
+
+        <!-- MENU (Adicionado o SAC) -->
+        <nav>
+            <a href="#promocoes" title="Ofertas"><i class="fa-solid fa-tag fa-fw"></i></a>
+            <a href="#familia" title="Família"><i class="fa-solid fa-users fa-fw"></i></a>
+            <a href="#perfumaria" title="Perfumaria"><i class="fa-solid fa-spa fa-fw"></i></a>
+            <a href="#convenios" title="Convênios"><i class="fa-solid fa-handshake fa-fw"></i></a>
+            <a href="#trabalhe-conosco" title="Carreiras"><i class="fa-solid fa-briefcase fa-fw"></i></a>
+            <a href="#sac" title="SAC"><i class="fa-solid fa-headset fa-fw"></i></a>
+        </nav>
+
+        <!-- 1. SEÇÃO DE PROMOÇÕES -->
+        <div class="section-title" id="promocoes">
+            <i class="fa-solid fa-tag"></i> Ofertas Especiais
+        </div>
+        <div class="promo-container">
+            <div class="promo-banner">
+                <h3>Fraldas com 30% OFF</h3>
+                <p>Leve mais, pague menos.</p>
+                <button>Aproveitar</button>
+            </div>
+            <div class="promo-banner" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                <h3 style="color: var(--primary-blue)">Semana da Pele</h3>
+                <p>Dermocosméticos em promoção.</p>
+                <button style="background: var(--primary-blue)">Ver Produtos</button>
+            </div>
+        </div>
+
+        <!-- 2. SEÇÃO PARA A FAMÍLIA -->
+        <div class="section-title" id="familia">
+            <i class="fa-solid fa-users"></i> Cuidados para a Família
+        </div>
+        <div class="product-grid">
+            <div class="product-card">
+                <span class="badge-ind">Infantil</span>
+                <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=300&q=80" alt="Vitamina Infantil" class="product-img">
+                <div class="product-title">Multivitamínico Infantil Gummy</div>
+                <div class="product-price">R$ 39,90</div>
+                <button class="btn-add" onclick="alert('Adicionado ao carrinho!')">Comprar</button>
+            </div>
+            <div class="product-card">
+                <span class="badge-ind">Geral</span>
+                <img src="https://images.unsplash.com/photo-1628771065518-0d82f1938462?auto=format&fit=crop&w=300&q=80" alt="Protetor Solar Família" class="product-img">
+                <div class="product-title">Protetor Solar Familiar FPS 50</div>
+                <div class="product-price">R$ 59,90</div>
+                <button class="btn-add" onclick="alert('Adicionado ao carrinho!')">Comprar</button>
+            </div>
+            <div class="product-card">
+                <span class="badge-ind">Cuidados</span>
+                <img src="https://images.unsplash.com/photo-1550572017-edb73489e1b2?auto=format&fit=crop&w=300&q=80" alt="Kit Higiene" class="product-img">
+                <div class="product-title">Kit Sabonete Líquido Hipoalergênico</div>
+                <div class="product-price">R$ 24,99</div>
+                <button class="btn-add" onclick="alert('Adicionado ao carrinho!')">Comprar</button>
+            </div>
+        </div>
+
+        <!-- 3. SERVIÇOS -->
+        <div class="section-title" id="servicos">
+            <i class="fa-solid fa-stethoscope"></i> Nossos Serviços
+        </div>
+        <div class="services-container">
+            <div class="service-card">
+                <i class="fa-solid fa-heart-pulse fa-fw"></i>
+                <h4>Aferição de Pressão</h4>
+            </div>
+            <div class="service-card">
+                <i class="fa-solid fa-syringe fa-fw"></i>
+                <h4>Aplicação de Injetáveis</h4>
+            </div>
+            <div class="service-card">
+                <i class="fa-solid fa-vial-virus fa-fw"></i>
+                <h4>Testes Rápidos</h4>
+            </div>
+            <div class="service-card">
+                <i class="fa-solid fa-laptop-medical fa-fw"></i>
+                <h4>Telemedicina</h4>
+            </div>
+        </div>
+
+        <!-- 4. PERFUMARIA -->
+        <div class="section-title" id="perfumaria">
+            <i class="fa-solid fa-spa"></i> Perfumaria e Beleza
+        </div>
+        <div class="perfumery-banner">
+            Beleza e Cuidado
+        </div>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=300&q=80" alt="Hidratante" class="product-img">
+                <div class="product-title">Loção Hidratante Corporal 400ml</div>
+                <div class="product-price">R$ 59,90</div>
+                <button class="btn-add" onclick="alert('Adicionado ao carrinho!')">Comprar</button>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=300&q=80" alt="Protetor Solar" class="product-img">
+                <div class="product-title">Protetor Solar Facial FPS 70</div>
+                <div class="product-price">R$ 89,90</div>
+                <button class="btn-add" onclick="alert('Adicionado ao carrinho!')">Comprar</button>
+            </div>
+        </div>
+
+        <!-- 5. SEÇÃO DE CONVÊNIOS -->
+        <div class="section-title" id="convenios">
+            <i class="fa-solid fa-handshake"></i> Convênios e Empresas
+        </div>
+        <div class="convenio-container">
+            <div class="convenio-card">
+                <h3>Possui convênio com nossa rede?</h3>
+                <p>Oferecemos descontos exclusivos em medicamentos e perfumaria para colaboradores de empresas parceiras. Consulte seu benefício!</p>
+                <button class="btn-convenio" onclick="alert('Redirecionando para consulta de convênios...')">Consultar Empresas Parceiras</button>
+            </div>
+        </div>
+
+        <!-- 6. SEÇÃO DE TRABALHE CONOSCO -->
+        <div class="section-title" id="trabalhe-conosco">
+            <i class="fa-solid fa-briefcase"></i> Trabalhe Conosco
+        </div>
+        <div class="jobs-container">
+            <div class="jobs-card">
+                <i class="fa-solid fa-user-tie"></i>
+                <h3>Faça parte da nossa equipe!</h3>
+                <p>Estamos sempre em busca de talentos nas áreas de atendimento, farmácia e logística. Envie o seu currículo e venha crescer conosco.</p>
+                <button class="btn-jobs" onclick="alert('Redirecionando para o portal de vagas...')">Enviar Currículo</button>
+            </div>
+        </div>
+
+        <!-- 7. SEÇÃO DE SAC (SERVIÇO DE ATENDIMENTO AO CONSUMIDOR) -->
+        <div class="section-title" id="sac">
+            <i class="fa-solid fa-headset"></i> Atendimento ao Cliente (SAC)
+        </div>
+        <div class="sac-container">
+            <div class="sac-card">
+                <i class="fa-solid fa-comments"></i>
+                <h3>Precisa de Ajuda ou Reclamações?</h3>
+                <p>Estamos à disposição para tirar dúvidas sobre pedidos, entregas e sugestões. Atendimento de segunda a sábado, das 08h às 20h.</p>
+                <a href="https://wa.me/5562999999999?text=Olá,%20preciso%20de%20atendimento%20via%20SAC." class="btn-sac" target="_blank">Falar com o SAC</a>
+            </div>
+        </div>
+
+        <!-- BOTÃO FLUTUANTE DO WHATSAPP (FARMACÊUTICO) -->
+        <a href="https://wa.me/5562999999999?text=Olá,%20gostaria%20de%20falar%20com%20o%20farmacêutico!" class="whatsapp-float" target="_blank" title="Falar com o Farmacêutico via WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+
+        <!-- RODAPÉ -->
+        <footer>
+            <div class="trust-grid">
+                <div class="trust-item">
+                    <i class="fa-solid fa-motorcycle"></i>
+                    <span>Delivery Rápido</span>
+                </div>
+                <div class="trust-item">
+                    <i class="fa-solid fa-lock"></i>
+                    <span>Compra Segura</span>
+                </div>
+                <div class="trust-item">
+                    <i class="fa-solid fa-capsules"></i>
+                    <span>Origem Garantida</span>
+                </div>
+            </div>
+            <div class="footer-info">
+                <p><strong>Farmácia Bem-Estar</strong></p>
+                <p>Farmacêutico Responsável: João da Silva - CRF: 12345</p>
+                <p>&copy; 2026 Todos os direitos reservados.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Transição da Capa para o Conteúdo
+        function enterStore() {
+            const cover = document.getElementById('cover-screen');
+            const mainContent = document.getElementById('main-content');
+            
+            cover.style.opacity = '0';
+            setTimeout(() => {
+                cover.style.display = 'none';
+                mainContent.style.display = 'block';
+                setTimeout(() => {
+                    mainContent.style.opacity = '1';
+                }, 50);
+            }, 600);
+        }
+    </script>
+</body>
+</html>
