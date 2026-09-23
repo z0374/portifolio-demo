@@ -1,0 +1,261 @@
+Abaixo está uma página de produto (PDP) baseada no design da farmácia, incorporando o conceito da biblioteca de componentes e estruturada de forma modular com abas interativas (Tabs) para as informações adicionais, conforme solicitado. O código inclui HTML, CSS e JavaScript no mesmo arquivo para visualização direta.
+Componente de Menu Tabs
+Para gerar as abas, você solicitou que a função pudesse receber um array de tuplas [string, string | HTMLElementW]. No ambiente padrão da web, implementei isso usando o equivalente nativo: a função aceita uma tupla de Título (string) e Conteúdo (string com HTML ou um elemento DOM instanciado).
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vitamina C + Zinco 1000mg | Farmácia Bem-Estar</title>
+    <!-- Fonte Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Ícones FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --surface-color: #ffffff;
+            --primary-green: #00b894; 
+            --primary-blue: #0984e3;  
+            --text-dark: #2d3436;
+            --text-muted: #636e72;
+            --border-color: #dfe6e9;
+            --radius-md: 12px;
+            --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+        }
+
+        /* Header */
+        .top-bar {
+            background-color: var(--primary-blue);
+            color: #fff;
+            text-align: center;
+            padding: 8px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        header {
+            background-color: var(--surface-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo-area { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo-area i { color: var(--primary-green); font-size: 24px; }
+        .logo-text { font-size: 20px; font-weight: 700; color: var(--primary-blue); }
+
+        /* Estrutura do Produto */
+        .product-container {
+            max-width: 1000px;
+            margin: 30px auto;
+            background: var(--surface-color);
+            padding: 30px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .product-container { grid-template-columns: 1fr; margin: 15px; padding: 20px; }
+        }
+
+        .product-gallery img.main-image {
+            width: 100%; height: 400px; object-fit: contain;
+            border: 1px solid var(--border-color); border-radius: 8px; padding: 20px;
+        }
+
+        .breadcrumb { font-size: 12px; color: var(--text-muted); margin-bottom: 15px; }
+        .breadcrumb a { color: var(--primary-blue); text-decoration: none; }
+
+        .badge {
+            background-color: var(--primary-green); color: #fff; font-size: 10px;
+            font-weight: 700; padding: 4px 8px; border-radius: 4px; display: inline-block; margin-bottom: 10px;
+        }
+
+        .product-title { font-size: 24px; font-weight: 700; margin-bottom: 10px; }
+        .product-price { font-size: 32px; font-weight: 700; color: var(--primary-green); margin-bottom: 25px; }
+
+        .btn-buy {
+            background-color: var(--primary-green); color: #fff; border: none;
+            padding: 15px 20px; border-radius: 8px; font-size: 16px; font-weight: 700;
+            cursor: pointer; width: 100%; display: flex; justify-content: center; gap: 10px;
+        }
+
+        /* ================= COMPONENTE DE TABS ================= */
+        .tabs-container {
+            grid-column: 1 / -1; /* Ocupa as duas colunas no grid */
+            margin-top: 20px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        .tabs-header {
+            display: flex;
+            gap: 20px;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .tab-btn.active {
+            color: var(--primary-blue);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-blue);
+        }
+
+        .tab-content {
+            display: none;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">Entrega rápida em até 2 horas na sua região! 🛵</div>
+    <header>
+        <a href="#" class="logo-area">
+            <i class="fa-solid fa-notes-medical"></i>
+            <div class="logo-text">Bem-Estar</div>
+        </a>
+        <div style="font-size: 20px; color: var(--primary-green);"><i class="fa-solid fa-cart-shopping"></i></div>
+    </header>
+
+    <div class="product-container">
+        <!-- Galeria -->
+        <div class="product-gallery">
+            <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80" alt="Vitamina C" class="main-image">
+        </div>
+
+        <!-- Informações Basicas -->
+        <div class="product-info">
+            <div class="breadcrumb"><a href="#">Início</a> > Imunidade</div>
+            <span class="badge">Indicação do Farmacêutico</span>
+            <h1 class="product-title">Vitamina C + Zinco 1000mg 10 Comprimidos</h1>
+            <div class="product-price">R$ 29,90</div>
+            <button class="btn-buy" onclick="alert('Adicionado ao carrinho!')"><i class="fa-solid fa-cart-plus"></i> Comprar Agora</button>
+        </div>
+
+        <!-- Onde o componente de Tabs será injetado via JS -->
+        <div id="product-tabs-wrapper" class="tabs-container"></div>
+    </div>
+
+    <!-- Script Lógico das Tabs -->
+    <script>
+        /**
+         * Cria um componente de Menu Tabs.
+         * @param {Array<[string, string|HTMLElement]>} tabsData - Array de tuplas contendo [Título, Conteúdo (String ou Node)]
+         * @param {HTMLElement} container - Onde as abas serão renderizadas
+         */
+        function createTabsComponent(tabsData, container) {
+            const headerDiv = document.createElement("div");
+            headerDiv.className = "tabs-header";
+            
+            const contentDiv = document.createElement("div");
+            contentDiv.className = "tabs-body";
+
+            tabsData.forEach((tab, index) => {
+                const [title, content] = tab;
+                
+                // Botão da aba
+                const btn = document.createElement("button");
+                btn.className = `tab-btn ${index === 0 ? 'active' : ''}`;
+                btn.textContent = title;
+                
+                // Painel de conteúdo
+                const panel = document.createElement("div");
+                panel.className = `tab-content ${index === 0 ? 'active' : ''}`;
+                
+                // Trata o segundo item (String ou HTMLElement)
+                if (typeof content === "string") {
+                    panel.innerHTML = content;
+                } else if (content instanceof HTMLElement) {
+                    panel.appendChild(content);
+                }
+
+                // Lógica de click
+                btn.addEventListener("click", () => {
+                    // Remove ativação de todos
+                    Array.from(headerDiv.children).forEach(b => b.classList.remove("active"));
+                    Array.from(contentDiv.children).forEach(p => p.classList.remove("active"));
+                    
+                    // Ativa aba atual
+                    btn.classList.add("active");
+                    panel.classList.add("active");
+                });
+
+                headerDiv.appendChild(btn);
+                contentDiv.appendChild(panel);
+            });
+
+            container.appendChild(headerDiv);
+            container.appendChild(contentDiv);
+        }
+
+        // Exemplo de uso
+        document.addEventListener("DOMContentLoaded", () => {
+            const wrapper = document.getElementById("product-tabs-wrapper");
+            
+            // Criando um elemento DOM para testar a injeção via HTMLElement
+            const advertenciaHtml = document.createElement("div");
+            advertenciaHtml.style.padding = "10px";
+            advertenciaHtml.style.backgroundColor = "#fff3cd";
+            advertenciaHtml.style.border = "1px solid #ffeeba";
+            advertenciaHtml.style.color = "#856404";
+            advertenciaHtml.style.borderRadius = "4px";
+            advertenciaHtml.innerHTML = "<strong>Atenção:</strong> Este produto não substitui uma alimentação equilibrada e seu consumo deve ser orientado por nutricionista ou médico.";
+
+            const productTabsInfo = [
+                ["Descrição", "Suplemento vitamínico e mineral indicado para auxiliar no fortalecimento do sistema imunológico. A combinação possui ação antioxidante contra radicais livres."],
+                ["Como Usar", "Tomar 1 comprimido ao dia, preferencialmente junto às refeições, ou conforme orientação médica."],
+                ["Advertências", advertenciaHtml] // Injetando o HTMLElement gerado acima
+            ];
+
+            createTabsComponent(productTabsInfo, wrapper);
+        });
+    </script>
+</body>
+</html>
+
