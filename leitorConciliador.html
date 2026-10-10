@@ -1773,6 +1773,47 @@ function interpretarXMLFiscal(xml, infNFe, texto, nomeArquivo) {
 
     const dataEmissaoRaw = getFilho(ide, "dhEmi") || getFilho(ide, "dEmi");
 
+    // Extrair Condição de Pagamento (Traduzindo a tag tPag)
+    const pag = pegarFilho(infNFe, "pag");
+    let condicaoPag = "-";
+    
+    if (pag) {
+        const detPags = Array.from(pag.children).filter(c => c.localName && c.localName.toLowerCase() === "detpag");
+        
+        const descricoes = detPags.map(dp => {
+            const tPag = getFilho(dp, "tPag") || getFilho(dp, "tpag");
+            const xPag = getFilho(dp, "xPag") || getFilho(dp, "xpag"); // xPag só vem se tPag for 99
+            
+            let desc = "";
+            switch (tPag) {
+                case "01": desc = "Dinheiro"; break;
+                case "02": desc = "Cheque"; break;
+                case "03": desc = "Cartão de Crédito"; break;
+                case "04": desc = "Cartão de Débito"; break;
+                case "05": desc = "Crédito Loja"; break;
+                case "10": desc = "Vale Alimentação"; break;
+                case "11": desc = "Vale Refeição"; break;
+                case "12": desc = "Vale Presente"; break;
+                case "13": desc = "Vale Combustível"; break;
+                case "14": desc = "Duplicata Mercantil"; break;
+                case "15": desc = "Boleto Bancário"; break;
+                case "16": desc = "Depósito Bancário"; break;
+                case "17": desc = "PIX"; break;
+                case "18": desc = "Transf. Bancária / Carteira Digital"; break;
+                case "19": desc = "Cashback / Fidelidade"; break;
+                case "90": desc = "Sem Pagamento"; break;
+                case "99": desc = xPag ? xPag : "Outros"; break;
+                default:   desc = xPag ? xPag : (tPag ? `Código ${tPag}` : ""); break;
+            }
+            return desc;
+        }).filter(Boolean);
+        
+        if (descricoes.length > 0) {
+            // Se houver mais de um método (ex: metade PIX, metade Cartão), junta com vírgula
+            condicaoPag = descricoes.join(", ");
+        }
+    }
+
     return {
         nomeArquivo,
         tipo,
@@ -1786,6 +1827,7 @@ function interpretarXMLFiscal(xml, infNFe, texto, nomeArquivo) {
         natureza: getFilho(ide, "natOp"),
         ambiente: getFilho(ide, "tpAmb"),
         cUF: getFilho(ide, "cUF"),
+        condicao: condicaoPag,
         vendedor: { nome: "-", documento: "-" },
         emitente: {
             documento: documentoEmitente,
@@ -2717,6 +2759,11 @@ function salvarEdicao() {
     doc.dataEmissao = montarDataEmissaoEdicao();
     doc.dataTimestamp = parseDataTimestamp(doc.dataEmissao);
     doc.natureza = document.getElementById("edit_natureza").value;
+    
+    if (document.getElementById("edit_condicao")) {
+        doc.condicao = document.getElementById("edit_condicao").value;
+    }
+    
     doc.chave = document.getElementById("edit_chave").value;
 
     if (["VENDA", "ORCAMENTO", "CONSIGNADO"].includes(doc.tipo)) {
@@ -2907,6 +2954,7 @@ function renderizarDetalhes(doc) {
                     <div class="info"><div class="info-label">Número</div><input id="edit_numero" class="edit-input" value="${escapeHTML(doc.numero)}"></div>
                     <div class="info"><div class="info-label">Série</div><input id="edit_serie" class="edit-input" value="${escapeHTML(doc.serie)}"></div>
                     <div class="info"><div class="info-label">Natureza / Obs</div><input id="edit_natureza" class="edit-input" value="${escapeHTML(doc.natureza)}"></div>
+                    <div class="info"><div class="info-label">Cond. Pagamento</div><input id="edit_condicao" class="edit-input" value="${escapeHTML(doc.condicao)}"></div>
                     <div class="info"><div class="info-label">Chave de Acesso / Cód.</div><input id="edit_chave" class="edit-input" value="${escapeHTML(doc.chave)}"></div>
                     <div class="info" style="grid-column: span 2; background:#eff6ff;">
                         <div class="info-label">📅 Data de emissão</div>
@@ -3066,6 +3114,7 @@ function renderizarDetalhes(doc) {
                     ${info("Modelo", doc.modelo)}
                     ${info("Data/Hora Emissão", formatarData(doc.dataEmissao))}
                     ${info("Natureza / Obs", doc.natureza)}
+                    ${info("Cond. Pagamento", doc.condicao)}
                     ${info("Chave / Cód.", doc.chave)}
                     ${info("Status", (doc.protocolo.status || "-") + (doc.protocolo.motivo ? " - " + doc.protocolo.motivo : ""))}
                     ${info("Protocolo", doc.protocolo.protocolo)}
