@@ -1,16 +1,49 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="utf-8">
-    <title>SoundMidi</title>
-
-    <link rel="stylesheet" href="https://portifolio.victormacedo.dev.br/assets/css/soundmidi/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecionando...</title>
+    
+    <!-- 1. Redirecionamento via HTML (Ocorre no instante 0) -->
+    <meta http-equiv="refresh" content="0; url=https://victormacedo.dev.br/">
+    
+    <!-- Link canônico informando aos motores de busca a URL oficial -->
+    <link rel="canonical" href="https://victormacedo.dev.br/">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif, Arial;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8f9fa;
+            color: #2d3436;
+            text-align: center;
+        }
+        a {
+            color: #0984e3;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
-
 <body>
-    <section id="app"></section>
+    <div>
+        <p>Redirecionando para o site oficial...</p>
+        <p>Se você não for redirecionado automaticamente, <a href="https://victormacedo.dev.br/">clique aqui</a>.</p>
+    </div>
 
-    <!-- 🔥 IMPORTANTE: type="module" -->
-    <script type="module" src="https://portifolio.victormacedo.dev.br/src/soundmidi/index.js"></script>
+    <!-- 2. Redirecionamento via JavaScript (Fallback caso a meta tag falhe) -->
+    <script>
+        // O replace() é usado em vez do href para que o usuário não possa voltar
+        // para esta página de redirecionamento usando o botão "Voltar" do navegador.
+        window.location.replace("https://victormacedo.dev.br/");
+    </script>
 </body>
-</html>>
+</html>
