@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500px" height="1010px" viewBox="720 895 1500 810">
+
+  <path id='heart-bg' 
+        d="M 1000 1500 Q 1200 1700 1500 1800 Q 1800 1700 2000 1500 C 2300 1100 1800 800 1500 1100 C 1200 800 700 1100 1000 1500" 
+        fill="white" stroke="none"/>
+
+  <path id='sword' 
+        d="M 1150 1600 L 1150 1800 L 1350 1800 L 2100 1100 L 1900 900" 
+        stroke-width="3" 
+        stroke='none' 
+        fill='gray'/>
+
+  <path d="M 1200 1750 L 2000 1000 M 2100 1300 L 1700 900 L 1800 800 L 1950 950 L 2100 800 L 2200 900 L 2050 1050 L 2200 1200 L 2100 1300" 
+        paint-order="stroke" 
+        stroke-width="3" 
+        stroke="black"
+        fill="yellow" />
+      
+  <path id='cross' 
+        d="M 1950 1600 L 1800 1800 L 1050 1300 L 900 1500 L 750 1400 L 900 1200 L 750 1100 L 900 900 L 1050 1000 L 1200 800 L 1350 900 L 1200 1100 L 1950 1600" 
+        stroke='black'
+        fill='#583E39'/>
+      
+  <path id='heart' 
+        d="M 1000 1500 Q 1200 1700 1500 1800 Q 1800 1700 2000 1500 C 2300 1100 1800 800 1500 1100 C 1200 800 700 1100 1000 1500" 
+        fill="red" 
+        stroke='black'/>
+</svg>
