@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1830px" height="1100px" viewBox="600 850 1830 900" style="border:solid;">
+<svg xmlns="http://www.w3.org/2000/svg" width="1830px" height="1100px" viewBox="600 850 1830 900">
   <defs>
     <filter id="sombraTexto" x="-50%" y="-50%" width="200%" height="200%">
       <feMorphology in="SourceAlpha" operator="dilate" radius="3" result="formaGorda"/>
